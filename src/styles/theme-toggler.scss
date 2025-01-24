@@ -1,0 +1,26 @@
+.theme-toggler__container {
+	position: relative;
+	width: 60px;
+	height: 40px;
+	background: var(--button);
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	cursor: pointer;
+	padding: 0 5px;
+	align-self: flex-end;
+}
+.theme-toggler__checkbox {
+	display: none;
+}
+.theme-toggler__button {
+	width: 30px;
+	height: 30px;
+	background: var(--highlight);
+	border-radius: 50%;
+	transition: transform 0.2s ease-in-out;
+}
+.theme-toggler__checkbox:checked + .theme-toggler__button {
+	transform: translate(100%);
+}

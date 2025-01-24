@@ -1,0 +1,20 @@
+:root {
+	--highlight: #ff9f0aff;
+	--highlight-hover: #ffc11a;
+	--lowlight: #535353;
+	--lowlight-hover: #616161;
+	--button-text: #ffffff;
+	--button: #7d7d7dff;
+	--button-hover: #949191;
+	--calculator: #454545;
+	--text: #ffffff;
+}
+
+[data-theme='dark'] {
+	--background-color: #121212;
+	--highlight: #710aff;
+	--lowlight: #4500a5;
+	--button: #5d5f71;
+	--calculator: #b9ceed;
+	--text: #001c99;
+}
