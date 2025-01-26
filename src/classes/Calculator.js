@@ -4,13 +4,20 @@ export class Calculator {
 		this.history = [];
 	}
 
-	calculateSum(numbers) {
+	sum(numbers) {
 		this.history.push(this.value);
 		this.value = numbers.reduce((acc, curr) => acc + curr, 0);
 		console.log(this.history);
 	}
-	uncalculateSum() {
+	uncalculate() {
 		this.value = this.history.pop();
+	}
+	multiply(numbers) {
+		this.history.push(this.value);
+		this.value = numbers.reduce((acc, curr) => acc * curr, 1);
+	}
+	clear() {
+		this.history.push(this.value);
 	}
 	getValue() {
 		return this.value;

@@ -3,25 +3,21 @@ export const BUTTONS_DATA = [
 	{
 		classExtra: 'button--undo',
 		dataType: 'undo',
-		value: null,
 		text: 'undo',
 	},
 	{
 		classExtra: '',
 		dataType: 'mc',
-		value: null,
 		text: 'mc',
 	},
 	{
 		classExtra: '',
 		dataType: 'clear',
-		value: null,
 		text: 'AC',
 	},
 	{
 		classExtra: '',
 		dataType: 'toggle',
-		value: null,
 		text: '+/-',
 	},
 	{
@@ -39,19 +35,16 @@ export const BUTTONS_DATA = [
 	{
 		classExtra: '',
 		dataType: 'memory-add',
-		value: null,
 		text: 'm+',
 	},
 	{
 		classExtra: '',
 		dataType: 'memory-subtract',
-		value: null,
 		text: 'm-',
 	},
 	{
 		classExtra: '',
 		dataType: 'memory-recall',
-		value: null,
 		text: 'mr',
 	},
 	{
@@ -135,7 +128,6 @@ export const BUTTONS_DATA = [
 	{
 		classExtra: '',
 		dataType: 'sqrt-2',
-		value: null,
 		text: '\\( \\sqrt[2]{x} \\)',
 	},
 	{
@@ -165,13 +157,11 @@ export const BUTTONS_DATA = [
 	{
 		classExtra: '',
 		dataType: 'sqrt-3',
-		value: null,
 		text: '\\( \\sqrt[3]{x} \\)',
 	},
 	{
 		classExtra: '',
 		dataType: 'sqrt-y',
-		value: null,
 		text: '\\( \\sqrt[y]{x} \\)',
 	},
 	{

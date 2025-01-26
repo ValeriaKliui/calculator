@@ -1,12 +1,14 @@
-import { getNumberFromString } from '../utils/string';
+import { getNumberFromString, trimOperator } from '../utils/string';
 import { Calculator } from './Calculator';
 import { CalculatorButtons } from './CalculatorButtons';
-import { SummCommand } from './Commands';
+import { ClearCommand, MultiplyCommand, SumCommand } from './Commands';
 
 export class ButtonHandler {
 	constructor(input) {
 		this.calculator = new Calculator();
-		this.sumCommand = new SummCommand(this.calculator);
+		this.sumCommand = new SumCommand(this.calculator);
+		this.multiplyCommand = new MultiplyCommand(this.calculator);
+		this.clearCommand = new ClearCommand(this.calculator);
 		this.buttons = new CalculatorButtons();
 		this.input = input;
 	}
@@ -24,11 +26,22 @@ export class ButtonHandler {
 			case 'undo':
 				this._handleUndo();
 				break;
+			case 'multiply':
+				this._handleMultiply(button.value);
 
 			case 'equal':
 				this._handleEqual();
 				break;
+
+			case 'clear':
+				this._handleClear();
+				break;
 		}
+	}
+	_handleClear() {
+		this.buttons.setCommand(this.clearCommand);
+		this.buttons.pressButton();
+		this._updateDisplay(0);
 	}
 	_handleEqual() {
 		if (this.input.value.includes('+')) this._handleSum('+');
@@ -38,6 +51,15 @@ export class ButtonHandler {
 
 		if (numbers.length === 2) {
 			this.buttons.setCommand(this.sumCommand);
+			this.buttons.pressButton(numbers);
+			this._updateDisplay(`${this.calculator.getValue()}${operator}`);
+		}
+	}
+	_handleMultiply(operator) {
+		const numbers = getNumberFromString(this.input.value);
+
+		if (numbers.length === 2) {
+			this.buttons.setCommand(this.multiplyCommand);
 			this.buttons.pressButton(numbers);
 			this._updateDisplay(`${this.calculator.getValue()}${operator}`);
 		}
