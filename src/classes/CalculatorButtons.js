@@ -8,8 +8,8 @@ export class CalculatorButtons {
 		this.command = command;
 		this.history.push(command);
 	}
-	pressButton(value) {
-		this.command.execute(value);
+	pressButton(value, ...params) {
+		this.command.execute(value, ...params);
 	}
 	undoButton() {
 		const lastCommand = this.history.pop();

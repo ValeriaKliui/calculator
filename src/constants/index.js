@@ -1,4 +1,12 @@
 export const BUTTON_CLASS_DEFAULT = 'calculator__button';
+export const OPERATORS_TYPES = {
+	'×': 'multiply',
+	'+': 'sum',
+	'÷': 'divide',
+	'-': 'sum',
+	'^': 'square',
+};
+
 export const BUTTONS_DATA = [
 	{
 		classExtra: 'button--undo',
@@ -73,19 +81,19 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		dataType: 'root-2',
+		dataType: 'square',
 		value: '^2',
 		text: '\\( x^2 \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'root-3',
+		dataType: 'square',
 		value: '^3',
 		text: '\\( x^3 \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'root-y',
+		dataType: 'square',
 		value: '^',
 		text: '\\( x^y \\)',
 	},
@@ -185,7 +193,6 @@ export const BUTTONS_DATA = [
 	{
 		classExtra: 'button--equal',
 		dataType: 'equal',
-		value: '=',
 		text: '=',
 	},
 ];
