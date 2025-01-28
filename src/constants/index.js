@@ -1,58 +1,55 @@
 export const BUTTON_CLASS_DEFAULT = 'calculator__button';
-export const OPERATORS_TYPES = {
-	'×': 'multiply',
-	'+': 'sum',
-	'÷': 'divide',
-	'-': 'sum',
-	'^': 'square',
+export const OPERATORS_SYMBOLS = {
+	multiply: '×',
+	sum: '+',
+	divide: '÷',
+	substract: '-',
 };
 
 export const BUTTONS_DATA = [
 	{
 		classExtra: 'button--undo',
-		dataType: 'undo',
+		command: 'undo',
 		text: 'undo',
 	},
 	{
 		classExtra: '',
-		dataType: 'mc',
+		command: 'mc',
 		text: 'mc',
 	},
 	{
 		classExtra: '',
-		dataType: 'clear',
+		command: 'clear',
 		text: 'AC',
 	},
 	{
 		classExtra: '',
-		dataType: 'toggle',
+		command: 'toggle',
 		text: '+/-',
 	},
 	{
 		classExtra: '',
-		dataType: 'percent',
-		value: '%',
+		command: 'percent',
 		text: '%',
 	},
 	{
 		classExtra: '',
-		dataType: 'divide',
-		value: '÷',
+		command: 'divide',
 		text: '÷',
 	},
 	{
 		classExtra: '',
-		dataType: 'memory-add',
+		command: 'memory-add',
 		text: 'm+',
 	},
 	{
 		classExtra: '',
-		dataType: 'memory-subtract',
+		command: 'memory-subtract',
 		text: 'm-',
 	},
 	{
 		classExtra: '',
-		dataType: 'memory-recall',
+		command: 'memory-recall',
 		text: 'mr',
 	},
 	{
@@ -75,26 +72,22 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		dataType: 'sum',
-		value: '-',
+		command: 'substract',
 		text: '—',
 	},
 	{
 		classExtra: '',
-		dataType: 'square',
-		value: '^2',
+		command: 'square',
 		text: '\\( x^2 \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'square',
-		value: '^3',
+		command: 'cube',
 		text: '\\( x^3 \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'square',
-		value: '^',
+		command: 'sqrt',
 		text: '\\( x^y \\)',
 	},
 	{
@@ -117,25 +110,22 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		dataType: 'multiply',
-		value: '×',
+		command: 'multiply',
 		text: '×',
 	},
 	{
 		classExtra: '',
-		dataType: 'clear',
-		value: '10^',
+		command: 'clear',
 		text: '\\( 10^x \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'reciprocal',
-		value: '1/',
+		command: 'reciprocal',
 		text: '\\( 1/x \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'sqrt-2',
+		command: 'sqrt-2',
 		text: '\\( \\sqrt[2]{x} \\)',
 	},
 	{
@@ -158,24 +148,22 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		dataType: 'sum',
-		value: '+',
+		command: 'sum',
 		text: '+',
 	},
 	{
 		classExtra: '',
-		dataType: 'sqrt-3',
+		command: 'sqrt-3',
 		text: '\\( \\sqrt[3]{x} \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'sqrt-y',
+		command: 'sqrt-y',
 		text: '\\( \\sqrt[y]{x} \\)',
 	},
 	{
 		classExtra: '',
-		dataType: 'factorial',
-		value: '!',
+		command: 'factorial',
 		text: '\\( x! \\)',
 	},
 	{
@@ -186,13 +174,12 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		dataType: 'decimal',
-		value: '.',
+		command: 'decimal',
 		text: ',',
 	},
 	{
 		classExtra: 'button--equal',
-		dataType: 'equal',
+		command: 'equal',
 		text: '=',
 	},
 ];

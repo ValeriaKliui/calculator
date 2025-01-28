@@ -1,4 +1,4 @@
-export class CalculatorButtons {
+export class Invoker {
 	constructor() {
 		this.command = null;
 		this.history = [];
@@ -6,16 +6,21 @@ export class CalculatorButtons {
 
 	setCommand(command) {
 		this.command = command;
-		this.history.push(command);
+		this.history.push(command); //возможно тут
 	}
 	pressButton(value, ...params) {
-		this.command.execute(value, ...params);
+		try {
+			return this.command.execute(value, ...params);
+		} catch (error) {
+			alert(`Error: ${error.message}`);
+			return 0;
+		}
 	}
-	undoButton() {
+	pressUndo() {
 		const lastCommand = this.history.pop();
 
 		if (lastCommand) {
-			lastCommand.undo();
+			return lastCommand.undo();
 		}
 	}
 }

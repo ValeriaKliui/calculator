@@ -1,7 +1,6 @@
-import { OPERATORS_TYPES } from '../constants';
-import { getNumberFromString, getNumbersFromString } from '../utils/string';
-import { Calculator } from './Calculator';
-import { CalculatorButtons } from './CalculatorButtons';
+import { Receiver } from './Calculator';
+import { Invoker } from './CalculatorButtons';
+import { Client } from './Client';
 import {
 	ClearCommand,
 	DivisionCommand,
@@ -12,123 +11,32 @@ import {
 } from './Commands';
 
 export class CalculatorHandler {
-	constructor(input) {
-		this.calculator = new Calculator();
-		this.buttons = new CalculatorButtons();
-		this.input = input;
+	constructor(displayElement) {
+		this.calculatorEngine = new Receiver();
 		this.commands = {
-			sum: new SumCommand(this.calculator),
-			multiply: new MultiplyCommand(this.calculator),
-			clear: new ClearCommand(this.calculator),
-			divide: new DivisionCommand(this.calculator),
-			toggleSign: new ToggleSignCommand(this.calculator),
-			square: new SquareCommand(this.calculator),
+			sum: new SumCommand(this.calculatorEngine),
+			multiply: new MultiplyCommand(this.calculatorEngine),
+			clear: new ClearCommand(this.calculatorEngine),
+			divide: new DivisionCommand(this.calculatorEngine),
+			toggleSign: new ToggleSignCommand(this.calculatorEngine),
+			square: new SquareCommand(this.calculatorEngine),
 		};
+		this.buttons = new Invoker();
+		this.displayElement = displayElement;
 	}
+	create() {
+		const handler = new Client(
+			this.commands,
+			this.buttons,
+			this.calculatorEngine,
+			this.displayElement,
+		);
 
-	handleClick(button) {
-		if (button.value) {
-			this._appendToDisplay(button.value);
-		}
-
-		const operatorBetweenNumbers =
-			this.input.value.match(/[+\-×÷^/%]/)?.[0];
-		const clickedButtonType = button.dataset.type;
-
-		if (clickedButtonType)
-			this._handleOperation(
-				operatorBetweenNumbers,
-				button.value,
-				clickedButtonType,
-			);
-	}
-
-	_handleOperation(operatorBetweenNumbers, buttonValue, clickedButtonType) {
-		const operations = {
-			sum: () => this._handleSum(buttonValue),
-			undo: () => this._handleUndo(),
-			multiply: () => this._handleMultiply(buttonValue),
-			divide: () => this._handleDivision(),
-			clear: () => this._handleClear(),
-			toggle: () => this._handleToggleSign(),
-			square: () => this._handleSquare(buttonValue),
-		};
-
-		const expressionCommand = OPERATORS_TYPES[operatorBetweenNumbers];
-		const expressionHandler = operations[expressionCommand];
-
-		if (expressionHandler) expressionHandler();
-
-		const shouldExecuteButtonHandler =
-			expressionCommand !== clickedButtonType;
-
-		if (shouldExecuteButtonHandler) {
-			operations?.[clickedButtonType]?.();
-		}
-	}
-
-	_handleClear() {
-		this.buttons.setCommand(this.commands.clear);
-		this.buttons.pressButton();
-		this._updateDisplay(0);
-	}
-	_handleToggleSign() {
-		const numbers = getNumbersFromString(this.input.value);
-
-		this.buttons.setCommand(this.commands.toggleSign);
-		this.buttons.pressButton(numbers);
-		this._updateDisplay(`${this.calculator.getValue()}`);
-	}
-	_handleDivision(operator) {
-		const numbers = getNumbersFromString(this.input.value);
-
-		if (numbers.length === 2) {
-			this.buttons.setCommand(this.commands.divide);
-			this.buttons.pressButton(numbers);
-			this._updateDisplay(
-				`${this.calculator.getValue()}${operator || ''}`,
-			);
-		}
-	}
-	_handleSquare(button) {
-		const regex = /(?<=\^)\d+/g;
-
-		const exponent =
-			this.input.value.match(regex)?.[0] || Number(button.slice(1));
-
-		if (exponent) {
-			const numbers = getNumbersFromString(this.input.value);
-			if (isNaN(Number(exponent))) return;
-
-			this.buttons.setCommand(this.commands.square);
-			this.buttons.pressButton(numbers, exponent);
-			this._updateDisplay(`${this.calculator.getValue()}`);
-		}
-	}
-	_handleSum(operator) {
-		const numbers = getNumbersFromString(this.input.value);
-
-		this.buttons.setCommand(this.commands.sum);
-		this.buttons.pressButton(numbers);
-		this._updateDisplay(`${this.calculator.getValue()}${operator || ''}`);
-	}
-	_handleMultiply(operator) {
-		const numbers = getNumbersFromString(this.input.value);
-
-		this.buttons.setCommand(this.commands.multiply);
-		this.buttons.pressButton(numbers);
-		this._updateDisplay(`${this.calculator.getValue()}${operator || ''}`);
-	}
-	_handleUndo() {
-		this.buttons.undoButton();
-		this._updateDisplay(this.calculator.getValue());
-	}
-
-	_appendToDisplay(value) {
-		this._updateDisplay(this.input.value + value);
-	}
-
-	_updateDisplay(value) {
-		this.input.value = value;
+		document
+			.querySelector('.calculator__buttons')
+			.addEventListener('click', (clickedButton) => {
+				const buttonClicked = clickedButton.target.closest('button');
+				if (buttonClicked) handler.handleButtonClick(buttonClicked);
+			});
 	}
 }

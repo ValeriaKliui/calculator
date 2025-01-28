@@ -11,22 +11,23 @@ class CalculatorCommand extends Command {
 	constructor(calculator) {
 		super();
 		this.calculator = calculator;
+		this.error = null;
 	}
 
 	undo() {
-		this.calculator.uncalculate();
+		return this.calculator.uncalculate();
 	}
 }
 
 export class SumCommand extends CalculatorCommand {
-	execute(numbers) {
-		this.calculator.sum(numbers);
+	execute(left, right) {
+		return this.calculator.sum(left, right);
 	}
 }
 
 export class MultiplyCommand extends CalculatorCommand {
-	execute(numbers) {
-		this.calculator.multiply(numbers);
+	execute(left, right) {
+		return this.calculator.multiply(left, right);
 	}
 }
 
@@ -37,8 +38,11 @@ export class ClearCommand extends CalculatorCommand {
 }
 
 export class DivisionCommand extends CalculatorCommand {
-	execute(numbers) {
-		this.calculator.divide(numbers);
+	execute(left, right) {
+		if (right === 0) {
+			throw new Error('Division by zero is impossible.');
+		}
+		return this.calculator.divide(left, right);
 	}
 }
 
@@ -48,7 +52,7 @@ export class ToggleSignCommand extends CalculatorCommand {
 	}
 }
 export class SquareCommand extends CalculatorCommand {
-	execute(numbers, exponent) {
-		this.calculator.square(numbers, exponent);
+	execute(base, exponent) {
+		return this.calculator.square(base, exponent);
 	}
 }

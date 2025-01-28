@@ -1,26 +1,29 @@
-export class Calculator {
+import {
+	calculateDivision,
+	calculateExponent,
+	calculateMultiply,
+	calculateSum,
+} from '../utils/math';
+
+export class Receiver {
 	constructor() {
 		this.value = '';
 		this.history = [];
 	}
 
-	sum(numbers) {
+	sum(left, right) {
 		this.history.push(this.value);
-		this.value = numbers.reduce((acc, curr) => acc + curr, 0);
+		return (this.value = calculateSum(left, right));
 	}
 
-	multiply(numbers) {
+	multiply(left, right) {
 		this.history.push(this.value);
-		this.value = numbers.reduce((acc, curr) => acc * curr, 1);
+		return (this.value = calculateMultiply(left, right));
 	}
-	square(numbers, exponent) {
+	square(base, exponent) {
 		this.history.push(this.value);
-		this.value = numbers[0] ** exponent;
+		return (this.value = calculateExponent(base, exponent));
 	}
-	setValue(newValue) {
-		this.value = newValue;
-	}
-
 	toggleSign(numbers) {
 		this.history.push(this.value);
 
@@ -35,15 +38,16 @@ export class Calculator {
 				.join('');
 		}
 	}
-	divide(numbers) {
+	divide(left, right) {
 		this.history.push(this.value);
-		this.value = numbers[0] / numbers[1];
+
+		return (this.value = calculateDivision(left, right));
 	}
 	clear() {
 		this.history.push(this.value);
 	}
 	uncalculate() {
-		this.value = this.history.pop();
+		return (this.value = this.history.pop());
 	}
 	getValue() {
 		return this.value;
