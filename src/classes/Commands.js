@@ -24,6 +24,16 @@ export class SumCommand extends CalculatorCommand {
 		return this.calculator.sum(left, right);
 	}
 }
+export class SubstractCommand extends CalculatorCommand {
+	execute(left, right) {
+		return this.calculator.substract(left, right);
+	}
+}
+export class PowerCommand extends CalculatorCommand {
+	execute(left, right) {
+		return this.calculator.power(left, right);
+	}
+}
 
 export class MultiplyCommand extends CalculatorCommand {
 	execute(left, right) {
@@ -48,7 +58,7 @@ export class DivisionCommand extends CalculatorCommand {
 
 export class ToggleSignCommand extends CalculatorCommand {
 	execute(numbers) {
-		this.calculator.toggleSign(numbers);
+		return this.calculator.toggle(numbers);
 	}
 }
 export class SquareCommand extends CalculatorCommand {

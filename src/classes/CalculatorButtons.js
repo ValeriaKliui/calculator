@@ -6,11 +6,11 @@ export class Invoker {
 
 	setCommand(command) {
 		this.command = command;
-		this.history.push(command); //возможно тут
+		this.history.push(command);
 	}
-	pressButton(value, ...params) {
+	pressButton(...numbers) {
 		try {
-			return this.command.execute(value, ...params);
+			return this.command.execute(...numbers);
 		} catch (error) {
 			alert(`Error: ${error.message}`);
 			return 0;
@@ -22,5 +22,6 @@ export class Invoker {
 		if (lastCommand) {
 			return lastCommand.undo();
 		}
+		return 0;
 	}
 }

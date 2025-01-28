@@ -87,7 +87,7 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'sqrt',
+		command: 'power',
 		text: '\\( x^y \\)',
 	},
 	{

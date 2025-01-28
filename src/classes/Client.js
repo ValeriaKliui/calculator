@@ -31,17 +31,24 @@ export class Client {
 	}
 
 	processCommand(command) {
-		if (['sum', 'multiply', 'substract', 'divide'].includes(command)) {
+		if (
+			['sum', 'multiply', 'substract', 'divide', 'power'].includes(
+				command,
+			)
+		) {
 			this.defineExpressionParams(command);
 		} else {
 			this.executeCommand(command);
 		}
 	}
 	appendOperand(number) {
-		this.currentOperand = this.isNewOperand
-			? number
-			: this.currentOperand + number;
-		this.isNewOperand = false;
+		if (this.isNewOperand) {
+			this.currentOperand = number;
+			this.isNewOperand = false;
+		} else {
+			this.currentOperand += number;
+		}
+
 		this.updateExpression();
 	}
 
@@ -78,12 +85,35 @@ export class Client {
 	}
 
 	executeCommand(command) {
-		const operand = parseFloat(this.currentOperand);
+		const currentOperand = parseFloat(this.currentOperand);
 
 		switch (command) {
 			case 'square':
 				this.invoker.setCommand(this.commands.square);
-				this.currentOperand = this.invoker.pressButton(operand, 2);
+				this.currentOperand = this.invoker.pressButton(
+					currentOperand,
+					2,
+				);
+				break;
+
+			case 'cube':
+				this.invoker.setCommand(this.commands.square);
+				this.currentOperand = this.invoker.pressButton(
+					currentOperand,
+					3,
+				);
+				break;
+
+			case 'toggle':
+				this.invoker.setCommand(this.commands.toggle);
+
+				if (this.isNewOperand)
+					this.leftOperand = this.invoker.pressButton(
+						this.leftOperand,
+					);
+				else
+					this.currentOperand =
+						this.invoker.pressButton(currentOperand);
 				break;
 
 			case 'undo':
@@ -108,6 +138,7 @@ export class Client {
 
 	updateExpression() {
 		const rightOperand = !this.isNewOperand ? this.currentOperand : '';
+
 		this.expression = getExpression(
 			this.currentOperand,
 			this.leftOperand,
