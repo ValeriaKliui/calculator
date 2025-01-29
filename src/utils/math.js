@@ -1,8 +1,8 @@
-export const calculateSum = (a, b) => a + b;
-export const calculateMultiply = (a, b) => a * b;
+export const calculateSum = (a, b) => Number(a) + Number(b);
+export const calculateMultiply = (a, b) => Number(a) * Number(b);
 export const calculateDivision = (a, b) => {
-	if (b===0) return NaN;
-	return a / b
+	if (b === 0) return NaN;
+	return Number(a) / Number(b);
 };
 export const calculateExponent = (base, exponent) => {
 	let result = 1;
@@ -18,18 +18,27 @@ export const calculateExponent = (base, exponent) => {
 const abs = (num) => (num < 0 ? -num : num);
 
 export const calculateRoot = (base, exponent) => {
-    if (base < 0 && exponent % 2 === 0) return NaN; 
-    if (base === 0) return 0; 
-    if (exponent === 1) return base; 
+	if (base < 0 && exponent % 2 === 0) return NaN;
+	if (base === 0) return 0;
+	if (exponent === 1) return base;
 
-    let guess = base / exponent; 
-    const accuracy = 0.000001; 
-    let prevGuess;
+	let guess = base / exponent;
+	const accuracy = 0.000001;
+	let prevGuess;
 
-    do {
-        prevGuess = guess;
-        guess = ((exponent - 1) * guess + base / calculateExponent(guess, exponent - 1)) / exponent;
-    } while (abs(guess - prevGuess) > accuracy);
+	do {
+		prevGuess = guess;
+		guess =
+			((exponent - 1) * guess +
+				base / calculateExponent(guess, exponent - 1)) /
+			exponent;
+	} while (abs(guess - prevGuess) > accuracy);
 
-    return guess;
+	return guess;
+};
+
+export const calculatePercent = (number, numberDepending) => {
+	if (!numberDepending) return number / 100;
+
+	return numberDepending * (number / 100);
 };

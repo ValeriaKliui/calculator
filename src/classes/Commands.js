@@ -40,7 +40,6 @@ export class Power_10Command extends CalculatorCommand {
 	}
 }
 
-
 export class MultiplyCommand extends CalculatorCommand {
 	execute(left, right) {
 		return this.calculator.multiply(left, right);
@@ -52,7 +51,6 @@ export class RootCommand extends CalculatorCommand {
 	}
 }
 
-
 export class ClearCommand extends CalculatorCommand {
 	execute() {
 		this.calculator.clear();
@@ -61,18 +59,43 @@ export class ClearCommand extends CalculatorCommand {
 
 export class DivisionCommand extends CalculatorCommand {
 	execute(left, right) {
-
 		return this.calculator.divide(left, right);
 	}
 }
 
 export class ToggleSignCommand extends CalculatorCommand {
-	execute(numbers) {
-		return this.calculator.toggle(numbers);
+	execute(number) {
+		return this.calculator.toggle(number);
 	}
 }
 export class SquareCommand extends CalculatorCommand {
 	execute(base, exponent) {
 		return this.calculator.square(base, exponent);
+	}
+}
+
+export class PercentCommand extends CalculatorCommand {
+	execute(number, numberDepending) {
+		return this.calculator.percent(number, numberDepending);
+	}
+}
+export class MemoryAddCommand extends CalculatorCommand {
+	execute(firstValue) {
+		return this.calculator.memory_add(firstValue);
+	}
+}
+export class MemorySubstractCommand extends CalculatorCommand {
+	execute(firstValue) {
+		return this.calculator.memory_substract(firstValue);
+	}
+}
+export class MemoryClearCommand extends CalculatorCommand {
+	execute() {
+		return this.calculator.memory_clear();
+	}
+}
+export class MemoryRecallCommand extends CalculatorCommand {
+	execute() {
+		return this.calculator.memory_recall();
 	}
 }

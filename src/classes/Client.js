@@ -1,4 +1,4 @@
-import { getExpression,  } from '../utils/string';
+import { getExpression } from '../utils/string';
 
 export class Client {
 	constructor(commands, invoker, receiver, displayElement) {
@@ -41,12 +41,14 @@ export class Client {
 			this.executeCommand(command);
 		}
 	}
-	appendOperand(number) {
+	appendOperand(value) {
+		if (value === '.' && String(this.currentOperand).includes('.')) return;
+
 		if (this.isNewOperand) {
-			this.currentOperand = number;
+			this.currentOperand = value;
 			this.isNewOperand = false;
 		} else {
-			this.currentOperand += number;
+			this.currentOperand += value;
 		}
 
 		this.updateExpression();
@@ -104,7 +106,36 @@ export class Client {
 				);
 				break;
 
-				case 'root': 
+			case 'memory_add':
+				if (!this.operationType) {
+					this.invoker.setCommand(this.commands.memory_add);
+					this.invoker.pressButton(this.currentOperand);
+				}
+				break;
+
+			case 'memory_substract':
+				if (!this.operationType) {
+					this.invoker.setCommand(this.commands.memory_substract);
+					this.invoker.pressButton(this.currentOperand);
+				}
+				break;
+
+			case 'memory_recall':
+				this.invoker.setCommand(this.commands.memory_recall);
+				const rememberedValue = this.invoker.pressButton(
+					this.currentOperand,
+				);
+				if (this.operationType) this.appendOperand(rememberedValue);
+				else this.currentOperand = rememberedValue;
+
+				break;
+
+			case 'memory_clear':
+				this.invoker.setCommand(this.commands.memory_clear);
+				this.invoker.pressButton();
+				break;
+
+			case 'root':
 				this.invoker.setCommand(this.commands.root);
 				this.currentOperand = this.invoker.pressButton(
 					currentOperand,
@@ -113,20 +144,20 @@ export class Client {
 				break;
 
 			case 'power_10':
-					this.invoker.setCommand(this.commands.square);
-					this.currentOperand = this.invoker.pressButton(
-						10,
-						currentOperand,
-					);
-					break;
+				this.invoker.setCommand(this.commands.square);
+				this.currentOperand = this.invoker.pressButton(
+					10,
+					currentOperand,
+				);
+				break;
 
-					case 'reciprocal':
-						this.invoker.setCommand(this.commands.divide);
-					this.currentOperand = this.invoker.pressButton(
-						1,
-						currentOperand,
-					);
-					break;
+			case 'reciprocal':
+				this.invoker.setCommand(this.commands.divide);
+				this.currentOperand = this.invoker.pressButton(
+					1,
+					currentOperand,
+				);
+				break;
 
 			case 'toggle':
 				this.invoker.setCommand(this.commands.toggle);
@@ -154,7 +185,24 @@ export class Client {
 
 			case 'equal':
 				this.calculate();
-				this.leftOperand = null
+				this.leftOperand = null;
+				break;
+
+			case 'percent':
+				this.invoker.setCommand(this.commands.percent);
+				if (
+					this.operationType === 'sum' ||
+					this.operationType === 'substract'
+				)
+					this.currentOperand = this.invoker.pressButton(
+						this.currentOperand,
+						this.leftOperand,
+					);
+				else
+					this.currentOperand = this.invoker.pressButton(
+						this.currentOperand,
+					);
+
 				break;
 		}
 

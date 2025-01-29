@@ -5,7 +5,7 @@ export const OPERATORS_SYMBOLS = {
 	divide: '÷',
 	substract: '-',
 	power: '^',
-	power_10:'^'
+	power_10: '^',
 };
 
 export const BUTTONS_DATA = [
@@ -16,7 +16,7 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'mc',
+		command: 'memory_clear',
 		text: 'mc',
 	},
 	{
@@ -41,17 +41,17 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'memory-add',
+		command: 'memory_add',
 		text: 'm+',
 	},
 	{
 		classExtra: '',
-		command: 'memory-subtract',
+		command: 'memory_substract',
 		text: 'm-',
 	},
 	{
 		classExtra: '',
-		command: 'memory-recall',
+		command: 'memory_recall',
 		text: 'mr',
 	},
 	{
@@ -176,8 +176,8 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'decimal',
-		text: ',',
+		value: '.',
+		text: '.',
 	},
 	{
 		classExtra: 'button--equal',

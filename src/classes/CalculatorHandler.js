@@ -4,7 +4,12 @@ import { Client } from './Client';
 import {
 	ClearCommand,
 	DivisionCommand,
+	MemoryAddCommand,
+	MemoryClearCommand,
+	MemoryRecallCommand,
+	MemorySubstractCommand,
 	MultiplyCommand,
+	PercentCommand,
 	PowerCommand,
 	RootCommand,
 	SquareCommand,
@@ -25,7 +30,12 @@ export class CalculatorHandler {
 			toggle: new ToggleSignCommand(this.calculatorEngine),
 			square: new SquareCommand(this.calculatorEngine),
 			power: new PowerCommand(this.calculatorEngine),
-			root: new RootCommand(this.calculatorEngine)
+			root: new RootCommand(this.calculatorEngine),
+			percent: new PercentCommand(this.calculatorEngine),
+			memory_add: new MemoryAddCommand(this.calculatorEngine),
+			memory_substract: new MemorySubstractCommand(this.calculatorEngine),
+			memory_clear: new MemoryClearCommand(this.calculatorEngine),
+			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
 		};
 		this.buttons = new Invoker();
 		this.displayElement = displayElement;
