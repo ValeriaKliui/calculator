@@ -1,3 +1,11 @@
+import { ROUNDING_PRECISION } from '../constants';
+
+export const roundNumber = (number, digit = ROUNDING_PRECISION) => {
+	const roundedNumber = number.toFixed(digit);
+
+	return parseFloat(roundedNumber);
+};
+
 export const calculateSum = (a, b = 0) => {
 	if (typeof a === 'boolean' || typeof b === 'boolean') {
 		return 0;
@@ -6,7 +14,7 @@ export const calculateSum = (a, b = 0) => {
 	const first = Number(a) || 0;
 	const second = Number(b) || 0;
 
-	return first + second;
+	return roundNumber(first + second);
 };
 
 export const calculateMultiply = (a, b = 1) => {
@@ -17,11 +25,20 @@ export const calculateMultiply = (a, b = 1) => {
 	const first = Number(a) || 0;
 	const second = Number(b) || 0;
 
-	return first * second;
+	return roundNumber(first * second);
 };
-export const calculateDivision = (a, b) => {
+
+export const calculateDivision = (a, b = 1) => {
+	if (typeof a === 'boolean' || typeof b === 'boolean') {
+		return 0;
+	}
+
 	if (b === 0) return NaN;
-	return Number(a) / Number(b);
+
+	const first = Number(a) || 0;
+	const second = Number(b) || 0;
+
+	return roundNumber(first / second);
 };
 export const calculateExponent = (base, exponent) => {
 	let result = 1;
@@ -55,18 +72,41 @@ export const calculateRoot = (base, exponent) => {
 
 	return guess;
 };
+export const calculatePercent = (value = 0, base = 0) => {
+	if (typeof value === 'boolean' || typeof base === 'boolean') {
+		return 0;
+	}
 
-export const calculatePercent = (number, numberDepending) => {
-	if (!numberDepending) return number / 100;
+	const number = Number(value);
+	const baseNumber = Number(base);
 
-	return numberDepending * (number / 100);
+	if (!baseNumber) return number / 100;
+
+	return number + (number * baseNumber) / 100;
 };
 
-export const calculateFactorial = (number) => {
-	if (number > 170) return NaN;
+export const calculateFactorial = (value) => {
+	if (
+		typeof value === 'boolean' ||
+		typeof value === 'object' ||
+		value === '' ||
+		value === null ||
+		value === undefined ||
+		isNaN(Number(value))
+	) {
+		return 0;
+	}
+
+	const number = Number(value);
+
+	if (number < 0 || number > 170 || !Number.isInteger(number)) {
+		return NaN;
+	}
+
 	let result = 1;
 	for (let i = 1; i <= number; i++) {
 		result *= i;
 	}
-	return result;
+
+	return roundNumber(result);
 };

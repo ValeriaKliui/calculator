@@ -1,4 +1,7 @@
 export const BUTTON_CLASS_DEFAULT = 'calculator__button';
+
+export const ROUNDING_PRECISION = 10;
+
 export const OPERATORS_SYMBOLS = {
 	multiply: '×',
 	sum: '+',

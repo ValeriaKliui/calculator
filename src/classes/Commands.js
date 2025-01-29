@@ -80,8 +80,8 @@ export class SquareCommand extends CalculatorCommand {
 }
 
 export class PercentCommand extends CalculatorCommand {
-	execute(number, numberDepending) {
-		return this.calculator.percent(number, numberDepending);
+	execute(number, baseNumber) {
+		return this.calculator.percent(number, baseNumber);
 	}
 }
 export class MemoryAddCommand extends CalculatorCommand {

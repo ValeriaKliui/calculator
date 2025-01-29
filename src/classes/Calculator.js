@@ -104,9 +104,9 @@ export class Receiver {
 		this.history.push(this.value);
 		return (this.value = number * -1);
 	}
-	percent(number, numberDepending) {
+	percent(number, baseNumber) {
 		this.history.push(this.value);
-		return (this.result = calculatePercent(number, numberDepending));
+		return (this.result = calculatePercent(number, baseNumber));
 	}
 
 	factorial(value) {
