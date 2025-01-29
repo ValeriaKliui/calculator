@@ -6,6 +6,7 @@ export const OPERATORS_SYMBOLS = {
 	substract: '-',
 	power: '^',
 	power_10: '^',
+	// root_y: '√'
 };
 
 export const BUTTONS_DATA = [
@@ -155,12 +156,12 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'sqrt-3',
+		command: 'root_3',
 		text: '\\( \\sqrt[3]{x} \\)',
 	},
 	{
 		classExtra: '',
-		command: 'sqrt-y',
+		command: 'root_y',
 		text: '\\( \\sqrt[y]{x} \\)',
 	},
 	{

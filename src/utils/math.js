@@ -42,3 +42,12 @@ export const calculatePercent = (number, numberDepending) => {
 
 	return numberDepending * (number / 100);
 };
+
+export const calculateFactorial = (number) => {
+	if (number > 170) return NaN;
+	let result = 1;
+	for (let i = 1; i <= number; i++) {
+		result *= i;
+	}
+	return result;
+};

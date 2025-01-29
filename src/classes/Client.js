@@ -32,9 +32,14 @@ export class Client {
 
 	processCommand(command) {
 		if (
-			['sum', 'multiply', 'substract', 'divide', 'power'].includes(
-				command,
-			)
+			[
+				'sum',
+				'multiply',
+				'substract',
+				'divide',
+				'power',
+				'root_y',
+			].includes(command)
 		) {
 			this.defineExpressionParams(command);
 		} else {
@@ -71,6 +76,7 @@ export class Client {
 
 		const left = this.leftOperand;
 		const right = parseFloat(this.currentOperand);
+		console.log(left, right);
 
 		this.invoker.setCommand(this.commands[this.operationType]);
 		const result = this.invoker.pressButton(left, right);
@@ -143,6 +149,14 @@ export class Client {
 				);
 				break;
 
+			case 'root_3':
+				this.invoker.setCommand(this.commands.root);
+				this.currentOperand = this.invoker.pressButton(
+					currentOperand,
+					3,
+				);
+				break;
+
 			case 'power_10':
 				this.invoker.setCommand(this.commands.square);
 				this.currentOperand = this.invoker.pressButton(
@@ -186,6 +200,11 @@ export class Client {
 			case 'equal':
 				this.calculate();
 				this.leftOperand = null;
+				break;
+
+			case 'factorial':
+				this.invoker.setCommand(this.commands.factorial);
+				this.currentOperand = this.invoker.pressButton(currentOperand);
 				break;
 
 			case 'percent':

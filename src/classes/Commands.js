@@ -46,8 +46,14 @@ export class MultiplyCommand extends CalculatorCommand {
 	}
 }
 export class RootCommand extends CalculatorCommand {
-	execute(left, right) {
-		return this.calculator.root(left, right);
+	execute(base, exponent) {
+		return this.calculator.root(base, exponent);
+	}
+}
+
+export class Root_yCommand extends CalculatorCommand {
+	execute(base, exponent) {
+		return this.calculator.root(base, exponent);
 	}
 }
 
@@ -97,5 +103,10 @@ export class MemoryClearCommand extends CalculatorCommand {
 export class MemoryRecallCommand extends CalculatorCommand {
 	execute() {
 		return this.calculator.memory_recall();
+	}
+}
+export class FactorialCommand extends CalculatorCommand {
+	execute(value) {
+		return this.calculator.factorial(value);
 	}
 }

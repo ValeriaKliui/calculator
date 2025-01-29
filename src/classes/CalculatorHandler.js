@@ -4,6 +4,7 @@ import { Client } from './Client';
 import {
 	ClearCommand,
 	DivisionCommand,
+	FactorialCommand,
 	MemoryAddCommand,
 	MemoryClearCommand,
 	MemoryRecallCommand,
@@ -12,6 +13,7 @@ import {
 	PercentCommand,
 	PowerCommand,
 	RootCommand,
+	Root_yCommand,
 	SquareCommand,
 	SubstractCommand,
 	SumCommand,
@@ -36,6 +38,8 @@ export class CalculatorHandler {
 			memory_substract: new MemorySubstractCommand(this.calculatorEngine),
 			memory_clear: new MemoryClearCommand(this.calculatorEngine),
 			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
+			root_y: new Root_yCommand(this.calculatorEngine),
+			factorial: new FactorialCommand(this.calculatorEngine),
 		};
 		this.buttons = new Invoker();
 		this.displayElement = displayElement;

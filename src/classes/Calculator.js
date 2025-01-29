@@ -1,6 +1,7 @@
 import {
 	calculateDivision,
 	calculateExponent,
+	calculateFactorial,
 	calculateMultiply,
 	calculatePercent,
 	calculateRoot,
@@ -75,6 +76,16 @@ export class Receiver {
 			);
 		return (this.value = result);
 	}
+	root_y(base, exponent) {
+		this.history.push(this.value);
+
+		const result = calculateRoot(base, exponent);
+		if (result == NaN)
+			throw new Error(
+				'An even root of a negative number does not exist in real numbers.',
+			);
+		return (this.value = result);
+	}
 	toggle(number) {
 		this.history.push(this.value);
 		return (this.value = number * -1);
@@ -90,13 +101,20 @@ export class Receiver {
 		if (result == NaN) throw new Error('Division by zero is impossible.');
 		return (this.value = result);
 	}
+	factorial(value) {
+		this.history.push(this.value);
+
+		const result = calculateFactorial(value);
+		console.log(result);
+		if (result == NaN)
+			throw new Error('Number for calculating factorial is too big.');
+
+		return (this.value = result);
+	}
 	clear() {
 		this.history = [];
 	}
 	uncalculate() {
 		return (this.value = this.history.pop());
-	}
-	getValue() {
-		return this.value;
 	}
 }
