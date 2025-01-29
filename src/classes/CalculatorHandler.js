@@ -6,6 +6,7 @@ import {
 	DivisionCommand,
 	MultiplyCommand,
 	PowerCommand,
+	RootCommand,
 	SquareCommand,
 	SubstractCommand,
 	SumCommand,
@@ -24,6 +25,7 @@ export class CalculatorHandler {
 			toggle: new ToggleSignCommand(this.calculatorEngine),
 			square: new SquareCommand(this.calculatorEngine),
 			power: new PowerCommand(this.calculatorEngine),
+			root: new RootCommand(this.calculatorEngine)
 		};
 		this.buttons = new Invoker();
 		this.displayElement = displayElement;

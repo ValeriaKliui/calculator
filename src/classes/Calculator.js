@@ -2,6 +2,7 @@ import {
 	calculateDivision,
 	calculateExponent,
 	calculateMultiply,
+	calculateRoot,
 	calculateSum,
 } from '../utils/math';
 
@@ -30,15 +31,27 @@ export class Receiver {
 	square(base, exponent) {
 		this.history.push(this.value);
 		return (this.value = calculateExponent(base, exponent));
+		
 	}
-	toggle(left, right) {
+	root(base, exponent){
+
 		this.history.push(this.value);
-		return (this.value = left * -1);
+
+		const result =calculateRoot(base, exponent)
+		if (result == NaN) 			throw new Error('An even root of a negative number does not exist in real numbers.');
+		return (this.value = result);
+
+	}
+	toggle(number) {
+		this.history.push(this.value);
+		return (this.value = number * -1);
 	}
 	divide(left, right) {
 		this.history.push(this.value);
 
-		return (this.value = calculateDivision(left, right));
+		const result =calculateDivision(left, right)
+		if (result == NaN) 			throw new Error('Division by zero is impossible.');
+		return (this.value = result);
 	}
 	clear() {
 		this.history = [];

@@ -1,4 +1,4 @@
-import { getExpression, getOperatorSymbol } from '../utils/string';
+import { getExpression,  } from '../utils/string';
 
 export class Client {
 	constructor(commands, invoker, receiver, displayElement) {
@@ -104,6 +104,30 @@ export class Client {
 				);
 				break;
 
+				case 'root': 
+				this.invoker.setCommand(this.commands.root);
+				this.currentOperand = this.invoker.pressButton(
+					currentOperand,
+					2,
+				);
+				break;
+
+			case 'power_10':
+					this.invoker.setCommand(this.commands.square);
+					this.currentOperand = this.invoker.pressButton(
+						10,
+						currentOperand,
+					);
+					break;
+
+					case 'reciprocal':
+						this.invoker.setCommand(this.commands.divide);
+					this.currentOperand = this.invoker.pressButton(
+						1,
+						currentOperand,
+					);
+					break;
+
 			case 'toggle':
 				this.invoker.setCommand(this.commands.toggle);
 
@@ -130,6 +154,7 @@ export class Client {
 
 			case 'equal':
 				this.calculate();
+				this.leftOperand = null
 				break;
 		}
 

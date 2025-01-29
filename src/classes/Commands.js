@@ -34,12 +34,24 @@ export class PowerCommand extends CalculatorCommand {
 		return this.calculator.power(left, right);
 	}
 }
+export class Power_10Command extends CalculatorCommand {
+	execute(left, right) {
+		return this.calculator.power(left, right);
+	}
+}
+
 
 export class MultiplyCommand extends CalculatorCommand {
 	execute(left, right) {
 		return this.calculator.multiply(left, right);
 	}
 }
+export class RootCommand extends CalculatorCommand {
+	execute(left, right) {
+		return this.calculator.root(left, right);
+	}
+}
+
 
 export class ClearCommand extends CalculatorCommand {
 	execute() {
@@ -49,9 +61,7 @@ export class ClearCommand extends CalculatorCommand {
 
 export class DivisionCommand extends CalculatorCommand {
 	execute(left, right) {
-		if (right === 0) {
-			throw new Error('Division by zero is impossible.');
-		}
+
 		return this.calculator.divide(left, right);
 	}
 }

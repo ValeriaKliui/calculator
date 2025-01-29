@@ -13,7 +13,9 @@ export const getExpression = (
 ) => {
 	const operator = getOperatorSymbol(operationType);
 
-	if (leftOperand === null) {
+	if (leftOperand === null 
+		//не уверена насчет rightOperand === null
+		|| rightOperand === null) {
 		return currentOperand;
 	}
 

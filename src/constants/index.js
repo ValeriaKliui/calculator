@@ -4,6 +4,8 @@ export const OPERATORS_SYMBOLS = {
 	sum: '+',
 	divide: '÷',
 	substract: '-',
+	power: '^',
+	power_10:'^'
 };
 
 export const BUTTONS_DATA = [
@@ -115,7 +117,7 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'clear',
+		command: 'power_10',
 		text: '\\( 10^x \\)',
 	},
 	{
@@ -125,7 +127,7 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'sqrt-2',
+		command: 'root',
 		text: '\\( \\sqrt[2]{x} \\)',
 	},
 	{
