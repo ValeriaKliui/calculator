@@ -1,5 +1,24 @@
-export const calculateSum = (a, b) => Number(a) + Number(b);
-export const calculateMultiply = (a, b) => Number(a) * Number(b);
+export const calculateSum = (a, b = 0) => {
+	if (typeof a === 'boolean' || typeof b === 'boolean') {
+		return 0;
+	}
+
+	const first = Number(a) || 0;
+	const second = Number(b) || 0;
+
+	return first + second;
+};
+
+export const calculateMultiply = (a, b = 1) => {
+	if (typeof a === 'boolean' || typeof b === 'boolean') {
+		return 0;
+	}
+
+	const first = Number(a) || 0;
+	const second = Number(b) || 0;
+
+	return first * second;
+};
 export const calculateDivision = (a, b) => {
 	if (b === 0) return NaN;
 	return Number(a) / Number(b);

@@ -18,6 +18,11 @@ class CalculatorCommand extends Command {
 		return this.calculator.uncalculate();
 	}
 }
+export class DivisionCommand extends CalculatorCommand {
+	execute(left, right) {
+		return this.calculator.divide(left, right);
+	}
+}
 
 export class SumCommand extends CalculatorCommand {
 	execute(left, right) {
@@ -60,12 +65,6 @@ export class Root_yCommand extends CalculatorCommand {
 export class ClearCommand extends CalculatorCommand {
 	execute() {
 		this.calculator.clear();
-	}
-}
-
-export class DivisionCommand extends CalculatorCommand {
-	execute(left, right) {
-		return this.calculator.divide(left, right);
 	}
 }
 

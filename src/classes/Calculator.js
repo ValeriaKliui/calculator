@@ -14,7 +14,16 @@ export class Receiver {
 		this.history = [];
 		this.rememberedValue = '';
 	}
+	divide(left, right) {
+		this.history.push(this.value);
 
+		const result = calculateDivision(left, right);
+		if (!Number.isFinite(result) || Number.isNaN(result)) {
+			throw new Error('Invalid division result (NaN or Infinity).');
+		}
+
+		return (this.value = result);
+	}
 	memory_add(firstValue) {
 		if (!this.value)
 			this.rememberedValue = calculateSum(
@@ -48,7 +57,9 @@ export class Receiver {
 
 	sum(left, right) {
 		this.history.push(this.value);
-		return (this.value = calculateSum(left, right));
+		const result = calculateSum(left, right);
+
+		return (this.value = result);
 	}
 	substract(left, right) {
 		this.history.push(this.value);
@@ -70,16 +81,23 @@ export class Receiver {
 		this.history.push(this.value);
 
 		const result = calculateRoot(base, exponent);
-		if (Number.isNaN(result))
-			return 'An even root of a negative number does not exist in real numbers.';
+
+		if (!Number.isFinite(result) || Number.isNaN(result)) {
+			throw new Error(
+				'An even root of a negative number does not exist in real numbers.',
+			);
+		}
 		return (this.value = result);
 	}
 	root_y(base, exponent) {
 		this.history.push(this.value);
 
 		const result = calculateRoot(base, exponent);
-		if (Number.isNaN(result))
-			return 'An even root of a negative number does not exist in real numbers.';
+		if (!Number.isFinite(result) || Number.isNaN(result)) {
+			throw new Error(
+				'An even root of a negative number does not exist in real numbers.',
+			);
+		}
 		return (this.value = result);
 	}
 	toggle(number) {
@@ -90,21 +108,15 @@ export class Receiver {
 		this.history.push(this.value);
 		return (this.result = calculatePercent(number, numberDepending));
 	}
-	divide(left, right) {
-		this.history.push(this.value);
 
-		const result = calculateDivision(left, right);
-		if (Number.isNaN(result)) return 'Division by zero is impossible.';
-		return (this.value = result);
-	}
 	factorial(value) {
 		this.history.push(this.value);
 
 		const result = calculateFactorial(value);
-		console.log(result);
-		if (Number.isNaN(result))
-			return 'Number for calculating factorial is too big.';
 
+		if (!Number.isFinite(result) || Number.isNaN(result)) {
+			throw new Error('Number for calculating factorial is too big.');
+		}
 		return (this.value = result);
 	}
 	clear() {

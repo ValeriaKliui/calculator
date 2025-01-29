@@ -76,7 +76,6 @@ export class Client {
 
 		const left = this.leftOperand;
 		const right = parseFloat(this.currentOperand);
-		console.log(left, right);
 
 		this.invoker.setCommand(this.commands[this.operationType]);
 		const result = this.invoker.pressButton(left, right);
@@ -115,7 +114,7 @@ export class Client {
 			case 'memory_add':
 				if (!this.operationType) {
 					this.invoker.setCommand(this.commands.memory_add);
-					this.invoker.pressButton(this.currentOperand);
+					this.invoker.pressButton(this.currentOperand ?? 0);
 				}
 				break;
 
