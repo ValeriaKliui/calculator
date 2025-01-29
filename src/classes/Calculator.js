@@ -70,20 +70,16 @@ export class Receiver {
 		this.history.push(this.value);
 
 		const result = calculateRoot(base, exponent);
-		if (result == NaN)
-			throw new Error(
-				'An even root of a negative number does not exist in real numbers.',
-			);
+		if (Number.isNaN(result))
+			return 'An even root of a negative number does not exist in real numbers.';
 		return (this.value = result);
 	}
 	root_y(base, exponent) {
 		this.history.push(this.value);
 
 		const result = calculateRoot(base, exponent);
-		if (result == NaN)
-			throw new Error(
-				'An even root of a negative number does not exist in real numbers.',
-			);
+		if (Number.isNaN(result))
+			return 'An even root of a negative number does not exist in real numbers.';
 		return (this.value = result);
 	}
 	toggle(number) {
@@ -98,7 +94,7 @@ export class Receiver {
 		this.history.push(this.value);
 
 		const result = calculateDivision(left, right);
-		if (result == NaN) throw new Error('Division by zero is impossible.');
+		if (Number.isNaN(result)) return 'Division by zero is impossible.';
 		return (this.value = result);
 	}
 	factorial(value) {
@@ -106,8 +102,8 @@ export class Receiver {
 
 		const result = calculateFactorial(value);
 		console.log(result);
-		if (result == NaN)
-			throw new Error('Number for calculating factorial is too big.');
+		if (Number.isNaN(result))
+			return 'Number for calculating factorial is too big.';
 
 		return (this.value = result);
 	}

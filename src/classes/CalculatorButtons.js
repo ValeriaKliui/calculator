@@ -10,7 +10,11 @@ export class Invoker {
 	}
 	pressButton(...numbers) {
 		try {
-			return this.command.execute(...numbers);
+			const result = this.command.execute(...numbers);
+			if (!Number.isNaN(Number(result))) return result;
+			else {
+				throw new Error(result);
+			}
 		} catch (error) {
 			alert(`Error: ${error.message}`);
 			return 0;
