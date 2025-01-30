@@ -41,37 +41,44 @@ export const calculateDivision = (a, b = 1) => {
 	return roundNumber(first / second);
 };
 export const calculateExponent = (base, exponent) => {
-	let result = 1;
-	let absoluteExp = exponent < 0 ? -exponent : exponent;
+	if (exponent === 0) return 1;
+	if (exponent < 0) return 1 / calculateExponent(base, -exponent);
 
-	for (let i = 0; i < absoluteExp; i++) {
-		result *= base;
+	let result = 1;
+	let currentBase = base;
+	let currentExponent = exponent;
+
+	while (currentExponent > 0) {
+		if (currentExponent % 2 === 1) {
+			result *= currentBase;
+		}
+		currentBase *= currentBase;
+		currentExponent = (currentExponent - (currentExponent % 2)) / 2; 
 	}
 
-	return exponent < 0 ? 1 / result : result;
+	return result;
 };
-
 const abs = (num) => (num < 0 ? -num : num);
 
-export const calculateRoot = (base, exponent) => {
-	if (base < 0 && exponent % 2 === 0) return NaN;
+export const calculateRoot = (base, exponent = 2) => {
+	if (typeof base !== "number" || typeof exponent !== "number" ) return NaN;
+	if (base < 0 && exponent % 2 === 0) return NaN; 
 	if (base === 0) return 0;
 	if (exponent === 1) return base;
+	if (exponent === 0) return NaN; 
 
-	let guess = base / exponent;
+	let guess = base > 1 ? base / 2 : base; 
 	const accuracy = 0.000001;
 	let prevGuess;
 
 	do {
 		prevGuess = guess;
-		guess =
-			((exponent - 1) * guess +
-				base / calculateExponent(guess, exponent - 1)) /
-			exponent;
+		guess = ((exponent - 1) * guess + base / calculateExponent(guess, exponent - 1)) / exponent;
 	} while (abs(guess - prevGuess) > accuracy);
 
-	return guess;
+	return roundNumber(guess);
 };
+
 export const calculatePercent = (value = 0, base = 0) => {
 	if (typeof value === 'boolean' || typeof base === 'boolean') {
 		return 0;
@@ -86,27 +93,27 @@ export const calculatePercent = (value = 0, base = 0) => {
 };
 
 export const calculateFactorial = (value) => {
-	if (
-		typeof value === 'boolean' ||
-		typeof value === 'object' ||
-		value === '' ||
-		value === null ||
-		value === undefined ||
-		isNaN(Number(value))
-	) {
-		return 0;
-	}
+    const number = Number(value);
 
-	const number = Number(value);
+    if (
+        typeof value === 'boolean' ||
+        typeof value === 'object' ||
+        value === '' ||
+        value === null ||
+        value === undefined ||
+        isNaN(number)
+    ) {
+        return 0;
+    }
 
-	if (number < 0 || number > 170 || !Number.isInteger(number)) {
-		return NaN;
-	}
+    if (number < 0 || number > 170 || !Number.isInteger(number)) {
+        return NaN;
+    }
 
-	let result = 1;
-	for (let i = 1; i <= number; i++) {
-		result *= i;
-	}
+    let result = 1;
+    for (let i = 1; i <= number; i++) {
+        result *= i;
+    }
 
-	return roundNumber(result);
+    return roundNumber(result);
 };
