@@ -1,4 +1,8 @@
-import { getExpression } from '../utils/string';
+import {
+	getExpression,
+	getIfDecimal,
+	getIfDecimalNumber,
+} from '../utils/string';
 
 export class Client {
 	constructor(commands, invoker, receiver, displayElement) {
@@ -7,47 +11,38 @@ export class Client {
 		this.receiver = receiver;
 		this.displayElement = displayElement;
 
-		this.resetState();
+		this.resetDisplay();
 	}
 
-	resetState() {
+	resetDisplay() {
 		this.currentOperand = '0';
-		this.expression = '';
 		this.isNewOperand = true;
 		this.leftOperand = null;
 		this.operationType = null;
 	}
 
-	handleButtonClick(buttonClicked) {
-		const { value, command } = buttonClicked.dataset;
-
-		if (value) {
-			this.appendOperand(value);
-		} else if (command) {
-			this.processCommand(command);
-		}
-
-		this.updateExpression();
+	updateDisplay() {
+		this.displayElement.value = getExpression(
+			this.currentOperand,
+			this.leftOperand,
+			this.operationType,
+			!this.isNewOperand ? this.currentOperand : '',
+		);
 	}
 
-	processCommand(command) {
-		if (
-			[
-				'sum',
-				'multiply',
-				'substract',
-				'divide',
-				'power',
-				'root_y',
-			].includes(command)
-		) {
-			this.defineExpressionParams(command);
-		} else {
-			this.executeCommand(command);
-		}
+	handleButtonClick(buttonClicked) {
+		const { value, command, power, base } = buttonClicked.dataset;
+
+		const isOperand = !!value;
+
+		if (isOperand) this.appendOperand(value);
+		else this.processOperator(command, base, power);
+
+		this.updateDisplay();
 	}
 	appendOperand(value) {
-		if (value === '.' && String(this.currentOperand).includes('.')) return;
+		const alreadyDecimal = getIfDecimalNumber(this.currentOperand);
+		if (value === '.' && alreadyDecimal) return;
 
 		if (this.isNewOperand) {
 			this.currentOperand = value;
@@ -56,10 +51,25 @@ export class Client {
 			this.currentOperand += value;
 		}
 
-		this.updateExpression();
+		this.updateDisplay();
 	}
 
-	defineExpressionParams(command) {
+	processOperator(command, base, power) {
+		const basicOperations = [
+			'sum',
+			'multiply',
+			'substract',
+			'power',
+			'root',
+			'divide',
+		];
+
+		if (basicOperations.includes(command) && !base && !power)
+			this.calculateSequentially(command);
+		else this.calculateImmediately(command, base, power);
+	}
+
+	calculateSequentially(command) {
 		if (this.leftOperand !== null && !this.isNewOperand) {
 			this.calculate();
 		} else {
@@ -68,7 +78,7 @@ export class Client {
 
 		this.operationType = command;
 		this.isNewOperand = true;
-		this.updateExpression();
+		this.updateDisplay();
 	}
 
 	calculate() {
@@ -80,108 +90,79 @@ export class Client {
 		this.invoker.setCommand(this.commands[this.operationType]);
 		const result = this.invoker.pressButton(left, right);
 
-		this.updateCalculationResult(result);
-	}
-
-	updateCalculationResult(result) {
 		this.currentOperand = result;
 		this.leftOperand = result;
 		this.operationType = null;
 		this.isNewOperand = true;
-		this.updateExpression();
+		this.updateDisplay();
 	}
 
-	executeCommand(command) {
-		const currentOperand = parseFloat(this.currentOperand);
+	calculateImmediately(command, base, power) {
+		if (command != 'undo' && command !== 'equal') {
+			if (
+				command.includes('memory_add') ||
+				command.includes('substract')
+			) {
+				if (!this.operationType)
+					this.invoker.setCommand(this.commands[command]);
+			} else this.invoker.setCommand(this.commands[command]);
+		}
 
 		switch (command) {
-			case 'square':
-				this.invoker.setCommand(this.commands.square);
+			case 'power':
 				this.currentOperand = this.invoker.pressButton(
-					currentOperand,
-					2,
+					base || this.currentOperand,
+					power || this.currentOperand,
 				);
 				break;
 
-			case 'cube':
-				this.invoker.setCommand(this.commands.square);
+			case 'root':
 				this.currentOperand = this.invoker.pressButton(
-					currentOperand,
-					3,
+					this.currentOperand,
+					power,
+				);
+				break;
+
+			case 'divide':
+				this.currentOperand = this.invoker.pressButton(
+					base,
+					this.currentOperand,
 				);
 				break;
 
 			case 'memory_add':
 				if (!this.operationType) {
-					this.invoker.setCommand(this.commands.memory_add);
 					this.invoker.pressButton(this.currentOperand ?? 0);
 				}
 				break;
 
 			case 'memory_substract':
 				if (!this.operationType) {
-					this.invoker.setCommand(this.commands.memory_substract);
-					this.invoker.pressButton(this.currentOperand);
+					this.invoker.pressButton(this.currentOperand ?? 0);
 				}
 				break;
 
 			case 'memory_recall':
-				this.invoker.setCommand(this.commands.memory_recall);
 				const rememberedValue = this.invoker.pressButton(
 					this.currentOperand,
 				);
 				if (this.operationType) this.appendOperand(rememberedValue);
 				else this.currentOperand = rememberedValue;
-
 				break;
 
 			case 'memory_clear':
-				this.invoker.setCommand(this.commands.memory_clear);
 				this.invoker.pressButton();
 				break;
 
-			case 'root':
-				this.invoker.setCommand(this.commands.root);
-				this.currentOperand = this.invoker.pressButton(
-					currentOperand,
-					2,
-				);
-				break;
-
-			case 'root_3':
-				this.invoker.setCommand(this.commands.root);
-				this.currentOperand = this.invoker.pressButton(
-					currentOperand,
-					3,
-				);
-				break;
-
-			case 'power_10':
-				this.invoker.setCommand(this.commands.square);
-				this.currentOperand = this.invoker.pressButton(
-					10,
-					currentOperand,
-				);
-				break;
-
-			case 'reciprocal':
-				this.invoker.setCommand(this.commands.divide);
-				this.currentOperand = this.invoker.pressButton(
-					1,
-					currentOperand,
-				);
-				break;
-
 			case 'toggle':
-				this.invoker.setCommand(this.commands.toggle);
-
 				if (this.isNewOperand)
 					this.leftOperand = this.invoker.pressButton(
 						this.leftOperand,
 					);
 				else
-					this.currentOperand =
-						this.invoker.pressButton(currentOperand);
+					this.currentOperand = this.invoker.pressButton(
+						this.currentOperand,
+					);
 				break;
 
 			case 'undo':
@@ -191,7 +172,6 @@ export class Client {
 				break;
 
 			case 'clear':
-				this.invoker.setCommand(this.commands.clear);
 				this.currentOperand = this.invoker.pressButton();
 				this.resetState();
 				break;
@@ -202,12 +182,12 @@ export class Client {
 				break;
 
 			case 'factorial':
-				this.invoker.setCommand(this.commands.factorial);
-				this.currentOperand = this.invoker.pressButton(currentOperand);
+				this.currentOperand = this.invoker.pressButton(
+					this.currentOperand,
+				);
 				break;
 
 			case 'percent':
-				this.invoker.setCommand(this.commands.percent);
 				if (
 					this.operationType === 'sum' ||
 					this.operationType === 'substract'
@@ -224,18 +204,6 @@ export class Client {
 				break;
 		}
 
-		this.updateExpression();
-	}
-
-	updateExpression() {
-		const rightOperand = !this.isNewOperand ? this.currentOperand : '';
-
-		this.expression = getExpression(
-			this.currentOperand,
-			this.leftOperand,
-			this.operationType,
-			rightOperand,
-		);
-		this.displayElement.value = this.expression;
+		this.updateDisplay();
 	}
 }

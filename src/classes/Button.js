@@ -5,11 +5,15 @@ export class Button {
 		value = null,
 		command = null,
 		classExtra = '',
+		power = null,
+		base = null,
 	}) {
 		this.className = `${className}${classExtra ? ` ${classExtra}` : ''}`;
 		this.text = text;
 		this.value = value;
 		this.command = command;
+		this.power = power;
+		this.base = base;
 	}
 
 	getButton() {
@@ -17,12 +21,10 @@ export class Button {
 		button.className = this.className;
 		button.textContent = this.text;
 
-		if (this.command) {
-			button.dataset.command = this.command;
-		}
-		if (this.value) {
-			button.dataset.value = this.value;
-		}
+		const datasets = ['command', 'value', 'power', 'base'];
+		datasets.forEach(
+			(value) => this[value] && (button.dataset[value] = this[value]),
+		);
 
 		return button;
 	}

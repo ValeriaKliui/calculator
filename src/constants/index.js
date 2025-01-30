@@ -8,8 +8,7 @@ export const OPERATORS_SYMBOLS = {
 	divide: '÷',
 	substract: '-',
 	power: '^',
-	power_10: '^',
-	// root_y: '√'
+	root: '√',
 };
 
 export const BUTTONS_DATA = [
@@ -60,19 +59,16 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-
 		value: '7',
 		text: '7',
 	},
 	{
 		classExtra: '',
-
 		value: '8',
 		text: '8',
 	},
 	{
 		classExtra: '',
-
 		value: '9',
 		text: '9',
 	},
@@ -83,12 +79,14 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'square',
+		command: 'power',
+		power: 2,
 		text: '\\( x^2 \\)',
 	},
 	{
 		classExtra: '',
-		command: 'cube',
+		command: 'power',
+		power: 3,
 		text: '\\( x^3 \\)',
 	},
 	{
@@ -98,19 +96,16 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-
 		value: '4',
 		text: '4',
 	},
 	{
 		classExtra: '',
-
 		value: '5',
 		text: '5',
 	},
 	{
 		classExtra: '',
-
 		value: '6',
 		text: '6',
 	},
@@ -121,34 +116,34 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'power_10',
+		command: 'power',
+		base: 10,
 		text: '\\( 10^x \\)',
 	},
 	{
 		classExtra: '',
-		command: 'reciprocal',
+		command: 'divide',
+		base: 1,
 		text: '\\( 1/x \\)',
 	},
 	{
 		classExtra: '',
 		command: 'root',
+		power: 2,
 		text: '\\( \\sqrt[2]{x} \\)',
 	},
 	{
 		classExtra: '',
-
 		value: '1',
 		text: '1',
 	},
 	{
 		classExtra: '',
-
 		value: '2',
 		text: '2',
 	},
 	{
 		classExtra: '',
-
 		value: '3',
 		text: '3',
 	},
@@ -159,12 +154,13 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: '',
-		command: 'root_3',
+		command: 'root',
+		power: 3,
 		text: '\\( \\sqrt[3]{x} \\)',
 	},
 	{
 		classExtra: '',
-		command: 'root_y',
+		command: 'root',
 		text: '\\( \\sqrt[y]{x} \\)',
 	},
 	{
@@ -174,7 +170,6 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: 'button--zero',
-
 		value: '0',
 		text: '0',
 	},

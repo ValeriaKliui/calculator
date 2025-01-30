@@ -13,8 +13,6 @@ import {
 	PercentCommand,
 	PowerCommand,
 	RootCommand,
-	Root_yCommand,
-	SquareCommand,
 	SubstractCommand,
 	SumCommand,
 	ToggleSignCommand,
@@ -30,7 +28,6 @@ export class CalculatorHandler {
 			clear: new ClearCommand(this.calculatorEngine),
 			divide: new DivisionCommand(this.calculatorEngine),
 			toggle: new ToggleSignCommand(this.calculatorEngine),
-			square: new SquareCommand(this.calculatorEngine),
 			power: new PowerCommand(this.calculatorEngine),
 			root: new RootCommand(this.calculatorEngine),
 			percent: new PercentCommand(this.calculatorEngine),
@@ -38,7 +35,6 @@ export class CalculatorHandler {
 			memory_substract: new MemorySubstractCommand(this.calculatorEngine),
 			memory_clear: new MemoryClearCommand(this.calculatorEngine),
 			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
-			root_y: new Root_yCommand(this.calculatorEngine),
 			factorial: new FactorialCommand(this.calculatorEngine),
 		};
 		this.buttons = new Invoker();

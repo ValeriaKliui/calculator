@@ -2,7 +2,6 @@ import { Receiver } from '../classes/Calculator';
 import { Invoker } from '../classes/CalculatorButtons';
 import {
 	ClearCommand,
-	SquareCommand,
 	DivisionCommand,
 	MultiplyCommand,
 	SubstractCommand,
@@ -15,7 +14,6 @@ import {
 	MemorySubstractCommand,
 	MemoryClearCommand,
 	MemoryRecallCommand,
-	Root_yCommand,
 	FactorialCommand,
 } from '../classes/Commands';
 
@@ -27,11 +25,9 @@ const commands = {
 	multiply: new MultiplyCommand(calculatorEngine),
 	divide: new DivisionCommand(calculatorEngine),
 	toggle: new ToggleSignCommand(calculatorEngine),
-	square: new SquareCommand(calculatorEngine),
 	power: new PowerCommand(calculatorEngine),
 	root: new RootCommand(calculatorEngine),
 	percent: new PercentCommand(calculatorEngine),
-	root_y: new Root_yCommand(calculatorEngine),
 	factorial: new FactorialCommand(calculatorEngine),
 };
 const buttons = new Invoker();

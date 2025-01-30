@@ -13,13 +13,12 @@ export const getExpression = (
 ) => {
 	const operator = getOperatorSymbol(operationType);
 
-	if (leftOperand === null 
-		//не уверена насчет rightOperand === null
-		|| rightOperand === null) {
+	if (leftOperand === null || rightOperand === null) {
 		return currentOperand;
 	}
 
-	return operator
-		? `${leftOperand}${operator}${rightOperand}`
-		: `${leftOperand}`;
+	return operationType === 'root'
+		? `${rightOperand}${operator ?? ''}${leftOperand}`
+		: `${leftOperand}${operator ?? ''}${rightOperand}`;
 };
+export const getIfDecimalNumber = (operand) => String(operand).includes('.');

@@ -39,11 +39,6 @@ export class PowerCommand extends CalculatorCommand {
 		return this.calculator.power(left, right);
 	}
 }
-export class Power_10Command extends CalculatorCommand {
-	execute(left, right) {
-		return this.calculator.power(left, right);
-	}
-}
 
 export class MultiplyCommand extends CalculatorCommand {
 	execute(left, right) {
@@ -51,12 +46,6 @@ export class MultiplyCommand extends CalculatorCommand {
 	}
 }
 export class RootCommand extends CalculatorCommand {
-	execute(base, exponent) {
-		return this.calculator.root(base, exponent);
-	}
-}
-
-export class Root_yCommand extends CalculatorCommand {
 	execute(base, exponent) {
 		return this.calculator.root(base, exponent);
 	}
@@ -71,11 +60,6 @@ export class ClearCommand extends CalculatorCommand {
 export class ToggleSignCommand extends CalculatorCommand {
 	execute(number) {
 		return this.calculator.toggle(number);
-	}
-}
-export class SquareCommand extends CalculatorCommand {
-	execute(base, exponent) {
-		return this.calculator.square(base, exponent);
 	}
 }
 

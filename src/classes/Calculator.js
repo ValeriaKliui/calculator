@@ -15,16 +15,48 @@ export class Receiver {
 		this.history = [];
 		this.rememberedValue = '';
 	}
-	divide(left, right) {
+
+	_calculate(operation, ...args) {
 		this.history.push(this.value);
-
-		const result = calculateDivision(left, right);
-		if (!Number.isFinite(result) || Number.isNaN(result)) {
-			throw new Error('Invalid division result (NaN or Infinity).');
-		}
-
-		return (this.value = roundNumber(result));
+		const result = operation(...args);
+		this.value = roundNumber(result);
+		return this.value;
 	}
+
+	sum(left, right) {
+		return this._calculate(calculateSum, left, right);
+	}
+
+	substract(left, right) {
+		return this._calculate(calculateSum, left, right * -1);
+	}
+
+	multiply(left, right) {
+		return this._calculate(calculateMultiply, left, right);
+	}
+
+	divide(left, right) {
+		return this._calculate(calculateDivision, left, right);
+	}
+
+	percent(number, baseNumber) {
+		return this._calculate(calculatePercent, number, baseNumber);
+	}
+
+	factorial(value) {
+		return this._calculate(calculateFactorial, value);
+	}
+
+	power(base, exponent) {
+		return this._calculate(calculatePower, base, exponent);
+	}
+
+	root(base, exponent) {
+		return this._calculate(calculateRoot, base, exponent);
+	}
+
+	///////////////////
+
 	memory_add(firstValue) {
 		if (!this.value)
 			this.rememberedValue = roundNumber(
@@ -52,78 +84,11 @@ export class Receiver {
 		return this.rememberedValue;
 	}
 
-	sum(left, right) {
-		this.history.push(this.value);
-		const result = calculateSum(left, right);
-
-		return (this.value = roundNumber(result));
-	}
-	substract(left, right) {
-		this.history.push(this.value);
-		return (this.value = roundNumber(calculateSum(left, right * -1)));
-	}
-	power(base, exponent) {
-		this.history.push(this.value);
-		const result = calculatePower(base, exponent);
-
-		if (!Number.isFinite(result) || Number.isNaN(result)) {
-			throw new Error('Invalid power result (NaN or Infinity).');
-		}
-
-		return (this.value = roundNumber(result));
-	}
-	multiply(left, right) {
-		this.history.push(this.value);
-		return (this.value = roundNumber(calculateMultiply(left, right)));
-	}
-	square(base, exponent) {
-		this.history.push(this.value);
-		return (this.value = roundNumber(calculatePower(base, exponent)));
-	}
-	root(base, exponent) {
-		this.history.push(this.value);
-
-		const result = calculateRoot(base, exponent);
-
-		if (!Number.isFinite(result) || Number.isNaN(result)) {
-			throw new Error(
-				'An even root of a negative number does not exist in real numbers.',
-			);
-		}
-		return (this.value = roundNumber(result));
-	}
-	root_y(base, exponent) {
-		this.history.push(this.value);
-
-		const result = calculateRoot(base, exponent);
-		if (!Number.isFinite(result) || Number.isNaN(result)) {
-			throw new Error(
-				'An even root of a negative number does not exist in real numbers.',
-			);
-		}
-		return (this.value = roundNumber(result));
-	}
 	toggle(number) {
 		this.history.push(this.value);
 		return (this.value = roundNumber(number * -1));
 	}
-	percent(number, baseNumber) {
-		this.history.push(this.value);
-		return (this.result = roundNumber(
-			calculatePercent(number, baseNumber),
-		));
-	}
 
-	factorial(value) {
-		this.history.push(this.value);
-
-		const result = calculateFactorial(value);
-
-		if (!Number.isFinite(result) || Number.isNaN(result)) {
-			throw new Error('Number for calculating factorial is too big.');
-		}
-		return (this.value = roundNumber(result));
-	}
 	clear() {
 		this.history = [];
 	}
