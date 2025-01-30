@@ -31,24 +31,22 @@ describe('tests for sum operation', () => {
 	});
 
 	it('should handle decimal numbers', () => {
-		const testVars = [
-			{
-				numbers: [0.12313132, 0.3737373737],
-				output: 0.12313132 + 0.3737373737,
-			},
-			{ numbers: [0.21312322], output: 0.21312322 },
-			{ numbers: [0.1, 0.2], output: 0.1 + 0.2 },
-			{
-				numbers: [1.0000000000000001, 2],
-				output: 1.0000000000000001 + 2,
-			},
-		];
-
-		testVars.forEach(({ numbers, output }) => {
-			const result = calculateSum(...numbers);
-
-			expect(result).toBeCloseTo(output, ROUNDING_PRECISION);
-		});
+		expect(calculateSum(0.12313132, 0.3737373737)).toBeCloseTo(
+			0.12313132 + 0.3737373737,
+			ROUNDING_PRECISION,
+		);
+		expect(calculateSum(0.21312322)).toBeCloseTo(
+			0.21312322,
+			ROUNDING_PRECISION,
+		);
+		expect(calculateSum(0.1, 0.2)).toBeCloseTo(
+			0.1 + 0.2,
+			ROUNDING_PRECISION,
+		);
+		expect(calculateSum(1.0000000000000001, 2)).toBeCloseTo(
+			1.0000000000000001 + 2,
+			ROUNDING_PRECISION,
+		);
 	});
 
 	it('should return correct sum', () => {

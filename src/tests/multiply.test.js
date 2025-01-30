@@ -33,23 +33,18 @@ describe('tests for multiply operation', () => {
 	});
 
 	it('should handle decimal numbers', () => {
-		const testVars = [
-			{
-				numbers: [0.12313132, 0.3737373737],
-				output: 0.12313132 * 0.3737373737,
-			},
-			{
-				numbers: [0.21312322, 0.2342342424],
-				output: 0.21312322 * 0.2342342424,
-			},
-			{ numbers: [0.1, 0.2], output: 0.1 * 0.2 },
-		];
-
-		testVars.forEach(({ numbers, output }) => {
-			const result = calculateMultiply(...numbers);
-
-			expect(result).toBeCloseTo(output, ROUNDING_PRECISION);
-		});
+		expect(calculateMultiply(0.12313132, 0.3737373737)).toBeCloseTo(
+			0.12313132 * 0.3737373737,
+			ROUNDING_PRECISION,
+		);
+		expect(calculateMultiply(0.21312322, 0.2342342424)).toBeCloseTo(
+			0.21312322 * 0.2342342424,
+			ROUNDING_PRECISION,
+		);
+		expect(calculateMultiply(0.1, 0.2)).toBeCloseTo(
+			0.1 * 0.2,
+			ROUNDING_PRECISION,
+		);
 	});
 
 	it('should return correct multiplied value', () => {
