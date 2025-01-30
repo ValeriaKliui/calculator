@@ -53,7 +53,7 @@ export class RootCommand extends CalculatorCommand {
 
 export class ClearCommand extends CalculatorCommand {
 	execute() {
-		this.calculator.clear();
+		return this.calculator.clear();
 	}
 }
 

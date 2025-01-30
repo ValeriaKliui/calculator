@@ -10,10 +10,6 @@ import {
 	PowerCommand,
 	RootCommand,
 	PercentCommand,
-	MemoryAddCommand,
-	MemorySubstractCommand,
-	MemoryClearCommand,
-	MemoryRecallCommand,
 	FactorialCommand,
 } from '../classes/Commands';
 

@@ -1,6 +1,7 @@
 import { Receiver } from './Calculator';
 import { Invoker } from './CalculatorButtons';
 import { Client } from './Client';
+import { CLinesdsdf } from './CLientT';
 import {
 	ClearCommand,
 	DivisionCommand,
@@ -41,7 +42,7 @@ export class CalculatorHandler {
 		this.displayElement = displayElement;
 	}
 	create() {
-		const handler = new Client(
+		const handler = new CLinesdsdf(
 			this.commands,
 			this.buttons,
 			this.calculatorEngine,

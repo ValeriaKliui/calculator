@@ -66,6 +66,7 @@ export class Receiver {
 			this.rememberedValue = roundNumber(
 				calculateSum(this.value, this.rememberedValue),
 			);
+		return 0
 	}
 	memory_substract(firstValue) {
 		if (!this.value)
@@ -76,12 +77,15 @@ export class Receiver {
 			this.rememberedValue = roundNumber(
 				calculateSum(this.value * -1, this.rememberedValue),
 			);
+		return 0
 	}
 	memory_clear() {
 		this.rememberedValue = '';
+		return 0
 	}
 	memory_recall() {
-		return this.rememberedValue;
+		console.log(this.rememberedValue)
+		return this.rememberedValue || 0;
 	}
 
 	toggle(number) {
@@ -91,8 +95,10 @@ export class Receiver {
 
 	clear() {
 		this.history = [];
+		return 0
 	}
 	uncalculate() {
-		return (this.value = this.history.pop());
+		this.value = this.history.pop() || 0
+		return (this.value);
 	}
 }

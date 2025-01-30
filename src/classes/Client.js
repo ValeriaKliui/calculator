@@ -71,7 +71,7 @@ export class Client {
 
 	calculateSequentially(command) {
 		if (this.leftOperand !== null && !this.isNewOperand) {
-			this.calculate();
+			this.calculateExpression();
 		} else {
 			this.leftOperand = parseFloat(this.currentOperand);
 		}
@@ -81,7 +81,7 @@ export class Client {
 		this.updateDisplay();
 	}
 
-	calculate() {
+	calculateExpression() {
 		if (!this.operationType || this.leftOperand === null) return;
 
 		const left = this.leftOperand;
@@ -100,12 +100,10 @@ export class Client {
 	calculateImmediately(command, base, power) {
 		if (command != 'undo' && command !== 'equal') {
 			if (
-				command.includes('memory_add') ||
-				command.includes('substract')
-			) {
-				if (!this.operationType)
-					this.invoker.setCommand(this.commands[command]);
-			} else this.invoker.setCommand(this.commands[command]);
+				this.operationType && (command.includes('memory_add') ||
+					command.includes('substract'))
+			) return;
+			else this.invoker.setCommand(this.commands[command]);
 		}
 
 		switch (command) {
@@ -173,11 +171,11 @@ export class Client {
 
 			case 'clear':
 				this.currentOperand = this.invoker.pressButton();
-				this.resetState();
+				this.resetDisplay();
 				break;
 
 			case 'equal':
-				this.calculate();
+				this.calculateExpression();
 				this.leftOperand = null;
 				break;
 
