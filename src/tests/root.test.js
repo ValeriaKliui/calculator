@@ -32,51 +32,38 @@ describe('tests for root operation', () => {
         expect(withoutSecArg).toBeCloseTo(2.64575131106, ROUNDING_PRECISION);
     });
 
-    // test("should return correct square root for positive numbers", () => {
-    //     expect(calculateRoot(4, 2)).toBeCloseTo(2, ROUNDING_PRECISION);
-    //     expect(calculateRoot('9', 2)).toBeCloseTo(3,ROUNDING_PRECISION);
-    //     expect(calculateRoot(16, '2')).toBeCloseTo(4,ROUNDING_PRECISION);
-    //     expect(calculateRoot('25', '2')).toBeCloseTo(5,ROUNDING_PRECISION);
-    //   });
+    test("should return correct square root for positive numbers", () => {
+        expect(calculateRoot(4, 2)).toBeCloseTo(Math.sqrt(4), ROUNDING_PRECISION);
+        expect(calculateRoot('9', 2)).toBeCloseTo(Math.sqrt(9),ROUNDING_PRECISION);
+        expect(calculateRoot(16, '2')).toBeCloseTo(Math.sqrt(16),ROUNDING_PRECISION);
+        expect(calculateRoot('25', '2')).toBeCloseTo(Math.sqrt(25),ROUNDING_PRECISION);
+      });
 
-    //   test("should return correct cube root", () => {
-    //     expect(calculateRoot(8, 3)).toBeCloseTo(2,ROUNDING_PRECISION);
-    //     expect(calculateRoot(27, 3)).toBeCloseTo(3,ROUNDING_PRECISION);
-    //     expect(calculateRoot(64, 3)).toBeCloseTo(4,ROUNDING_PRECISION);
-    //   });
+      test("should return correct cube root", () => {
+        expect(calculateRoot(8, 3)).toBeCloseTo(Math.cbrt(8),ROUNDING_PRECISION);
+        expect(calculateRoot(27, 3)).toBeCloseTo(Math.cbrt(27),ROUNDING_PRECISION);
+        expect(calculateRoot(64, 3)).toBeCloseTo(Math.cbrt(64),ROUNDING_PRECISION);
+      });
     
-    //   test("should handle negative bases correctly for odd exponents", () => {
-    //     expect(calculateRoot(-8, 3)).toBeCloseTo(-2,ROUNDING_PRECISION);
-    //     expect(calculateRoot(-27, 3)).toBeCloseTo(-3,ROUNDING_PRECISION);
-    //     expect(calculateRoot(-64, 3)).toBeCloseTo(-4,ROUNDING_PRECISION);
-    //   });
+      test("should handle negative bases correctly for odd exponents", () => {
+        expect(calculateRoot(-8, 3)).toBeCloseTo(Math.cbrt(-8),ROUNDING_PRECISION);
+        expect(calculateRoot(-27, 3)).toBeCloseTo(Math.cbrt(-27),ROUNDING_PRECISION);
+        expect(calculateRoot(-64, 3)).toBeCloseTo(Math.cbrt(-64),ROUNDING_PRECISION);
+      });
 
-    // it('should handle decimal numbers', () => {
-    //     const testVars = [
-    //         {
-    //             numbers: [0.12313132, 0.3737373737],
-    //             output: 0.12313132 * 0.3737373737,
-    //         },
-    //         {
-    //             numbers: [0.21312322, 0.2342342424],
-    //             output: 0.21312322 * 0.2342342424,
-    //         },
-    //         { numbers: [0.1, 0.2], output: 0.1 * 0.2 },
-    //     ];
+      test("should return 0 when base is 0", () => {
+        expect(calculateRoot(0, 2)).toBe(0);
+        expect(calculateRoot(0, 5)).toBe(0);
+      });
+    
+      test("should return the base when exponent is 1", () => {
+        expect(calculateRoot(5, 1)).toBe(5);
+        expect(calculateRoot(100, 1)).toBe(100);
+      });
 
-    //     testVars.forEach(({ numbers, output }) => {
-    //         const result = calculateRoot(...numbers);
-
-    //         expect(result).toBeCloseTo(output, ROUNDING_PRECISION);
-    //     });
-    // });
-
-    // it('should return correct value', () => {
-    //     expect(calculateRoot(10, 20)).toBe(200);
-    //     expect(calculateRoot('10', '20')).toBe(200);
-    //     expect(calculateRoot(0.5, 1.5)).toBe(0.75);
-    //     expect(calculateRoot(-2, -3)).toBe(6);
-    //     expect(calculateRoot(2, -3)).toBe(-6);
-    //     expect(calculateRoot(0, 3)).toBe(0);
-    // });
+      test("should return approximate roots for non-perfect squares", () => {
+        expect(calculateRoot(2, 2)).toBeCloseTo(Math.sqrt(2), ROUNDING_PRECISION);
+        expect(calculateRoot(10, 2)).toBeCloseTo(Math.sqrt(10), ROUNDING_PRECISION);
+        expect(calculateRoot(50, 2)).toBeCloseTo(Math.sqrt(50), ROUNDING_PRECISION);
+      });
 });

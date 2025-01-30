@@ -60,8 +60,12 @@ export const calculateExponent = (base, exponent) => {
 };
 const abs = (num) => (num < 0 ? -num : num);
 
-export const calculateRoot = (base, exponent = 2) => {
-	if (typeof base !== "number" || typeof exponent !== "number" ) return NaN;
+export const calculateRoot = (b, e = 2) => {
+	if (typeof b === 'boolean' || typeof e === 'boolean') {
+		return 0;
+	}
+const base = Number(b)
+const exponent = Number(e)
 	if (base < 0 && exponent % 2 === 0) return NaN; 
 	if (base === 0) return 0;
 	if (exponent === 1) return base;
