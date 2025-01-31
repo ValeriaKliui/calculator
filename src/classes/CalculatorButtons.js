@@ -2,6 +2,7 @@ export class Invoker {
 	constructor() {
 		this.command = null;
 		this.history = [];
+		this.error = null;
 	}
 
 	setCommand(command) {
@@ -18,8 +19,7 @@ export class Invoker {
 
 			return result;
 		} catch (error) {
-			console.error(`[Invoker] Error: ${error.message}`);
-			alert(`Error: ${error.message}`);
+			this.logError(`${error.message}`);
 			return 0;
 		}
 	}
@@ -30,5 +30,14 @@ export class Invoker {
 			return lastCommand.undo();
 		}
 		return 0;
+	}
+	logError(message) {
+		this.error = message;
+	}
+	getError() {
+		return this.error;
+	}
+	resetError() {
+		this.error = null;
 	}
 }

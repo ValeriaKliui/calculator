@@ -1,15 +1,13 @@
-import {
-	getExpression,
-	getIfDecimal,
-	getIfDecimalNumber,
-} from '../utils/string';
+import { getExpression, getIfDecimalNumber } from '../utils/string';
 
 export class Client {
-	constructor(commands, invoker, receiver, displayElement) {
+	constructor(commands, invoker, receiver, displayElement, displayError) {
 		this.commands = commands;
 		this.invoker = invoker;
 		this.receiver = receiver;
 		this.displayElement = displayElement;
+		this.calculationError = null;
+		this.displayError = displayError;
 
 		this.resetDisplay();
 	}
@@ -30,7 +28,18 @@ export class Client {
 		);
 	}
 
+	showError() {
+		this.calculationError = this.invoker.getError();
+
+		if (this.calculationError) {
+			this.calculationError = this.invoker.getError();
+			this.displayError.value = this.calculationError;
+			this.displayError.hidden = false;
+		} else this.displayError.hidden = true;
+	}
+
 	handleButtonClick(buttonClicked) {
+		if (this.calculationError) this.invoker.resetError();
 		const { value, command, power, base } = buttonClicked.dataset;
 
 		const isOperand = !!value;
@@ -100,9 +109,11 @@ export class Client {
 	calculateImmediately(command, base, power) {
 		if (command != 'undo' && command !== 'equal') {
 			if (
-				this.operationType && (command.includes('memory_add') ||
+				this.operationType &&
+				(command.includes('memory_add') ||
 					command.includes('substract'))
-			) return;
+			)
+				return;
 			else this.invoker.setCommand(this.commands[command]);
 		}
 

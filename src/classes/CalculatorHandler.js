@@ -1,7 +1,6 @@
 import { Receiver } from './Calculator';
 import { Invoker } from './CalculatorButtons';
 import { Client } from './Client';
-import { CLinesdsdf } from './CLientT';
 import {
 	ClearCommand,
 	DivisionCommand,
@@ -20,7 +19,7 @@ import {
 } from './Commands';
 
 export class CalculatorHandler {
-	constructor(displayElement) {
+	constructor(displayElement,displayError) {
 		this.calculatorEngine = new Receiver();
 		this.commands = {
 			sum: new SumCommand(this.calculatorEngine),
@@ -40,13 +39,14 @@ export class CalculatorHandler {
 		};
 		this.buttons = new Invoker();
 		this.displayElement = displayElement;
+		this.displayError = displayError
 	}
 	create() {
-		const handler = new CLinesdsdf(
+		const handler = new Client(
 			this.commands,
 			this.buttons,
 			this.calculatorEngine,
-			this.displayElement,
+			this.displayElement,this.displayError
 		);
 
 		document

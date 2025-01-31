@@ -1,27 +1,32 @@
 export class ThemeToggler {
-	constructor(selector) {
-		this.selector = selector;
-		document.addEventListener('DOMContentLoaded', this.setInitTheme);
+	constructor({ togglerSelector, togglerCheckboxSelector }) {
+		this.toggler = document.querySelector(togglerSelector);
+		this.togglerCheckbox = document.querySelector(togglerCheckboxSelector);
+
+		this.init();
+	}
+	init() {
+		document.addEventListener('DOMContentLoaded', () =>
+			this.setInitialTheme(),
+		);
+		this.togglerCheckbox.addEventListener('change', () =>
+			this.toggleTheme(),
+		);
+	}
+	setInitialTheme() {
+		console.log(this);
+		const savedTheme = localStorage.getItem('theme') || 'light';
+		this.togglerCheckbox.checked = savedTheme === 'dark';
+		this.setTheme(savedTheme);
 	}
 
-	subscribeOnClick() {
-		const toggler = document.getElementById('theme-toggler');
-		toggler.addEventListener('change', this.toggleTheme);
+	toggleTheme() {
+		const newTheme = this.togglerCheckbox.checked ? 'dark' : 'light';
+		this.setTheme(newTheme);
 	}
-	toggleTheme({ target }) {
-		this.setTheme();
-		// this.setTheme(target.checked ? 'dark' : 'light');
-		// console.log(this)
-	}
+
 	setTheme(theme) {
-		// document.documentElement.setAttribute('data-theme', theme);
-		// localStorage.setItem('theme', theme);
-	}
-
-	setInitTheme() {
-		// const initTheme = localStorage.getItem('theme') || 'light';
-		// const themeToggler = document.querySelector('.theme-toggler__checkbox');
-		// themeToggler.checked = initTheme === 'dark';
-		// this.setTheme(initTheme);
+		document.documentElement.setAttribute('data-theme', theme);
+		localStorage.setItem('theme', theme);
 	}
 }
