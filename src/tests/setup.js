@@ -1,7 +1,6 @@
-import { Receiver } from '../classes/Calculator';
-import { Invoker } from '../classes/CalculatorButtons';
+import { Receiver } from "../classes/Calculator";
+import { CommandInvoker } from "../classes/CommandInvoker";
 import {
-	ClearCommand,
 	DivisionCommand,
 	MultiplyCommand,
 	SubstractCommand,
@@ -11,7 +10,7 @@ import {
 	RootCommand,
 	PercentCommand,
 	FactorialCommand,
-} from '../classes/Commands';
+} from "../classes/Commands";
 
 const calculatorEngine = new Receiver();
 
@@ -26,7 +25,7 @@ const commands = {
 	percent: new PercentCommand(calculatorEngine),
 	factorial: new FactorialCommand(calculatorEngine),
 };
-const buttons = new Invoker();
+const buttons = new CommandInvoker();
 
 export const getOperationResult = (commandName, ...variables) => {
 	const command = commands[commandName];

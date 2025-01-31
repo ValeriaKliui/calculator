@@ -1,4 +1,4 @@
-export class Invoker {
+export class CommandInvoker {
 	constructor() {
 		this.command = null;
 		this.history = [];
@@ -13,7 +13,7 @@ export class Invoker {
 		try {
 			const result = this.command.execute(...numbers);
 
-			if (!Number.isFinite(result) || Number.isNaN(result)) {
+			if (!Number.isFinite(result)) {
 				throw new Error(result.message);
 			}
 

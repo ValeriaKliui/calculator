@@ -1,8 +1,7 @@
-import { Invoker } from './CalculatorButtons';
-import { Receiver } from './Receiver';
-import { CalculatorState } from './CalculatorState';
+import { CommandInvoker } from "./CommandInvoker";
+import { CalculatorEngine } from "./CalculatorEngine";
+import { CalculatorState } from "./CalculatorState";
 import {
-	ClearCommand,
 	DivisionCommand,
 	FactorialCommand,
 	MemoryAddCommand,
@@ -16,24 +15,26 @@ import {
 	SubstractCommand,
 	SumCommand,
 	ToggleSignCommand,
-} from './Commands';
-import { Display } from './Display';
-import { CommandsHanlder } from './CommandsHanlder';
+} from "./Commands";
+import { CalculatorDisplay } from "./CalculatorDisplay";
+import { CommandProcessor } from "./CommandProcessor";
 
-export class CalculatorHandler {
+export class CalculatorController {
 	constructor(displayElement, displayErrorElement) {
-		this.calculatorEngine = new Receiver();
-		this.invoker = new Invoker();
+		this.calculatorEngine = new CalculatorEngine();
+		this.commandInvoker = new CommandInvoker();
 
-		// this.calculationError = null;
 		this.calculatorState = new CalculatorState();
-		this.display = new Display(displayElement, displayErrorElement);
-		this.CommandsHanlder = new CommandsHanlder(this.calculatorState, this.invoker, this.commands);
-		this.commands = {
+		this.display = new CalculatorDisplay(displayElement, displayErrorElement);
+		this.commands = this.initializeCommands();
+		this.commandProcessor = new CommandProcessor(this.calculatorState, this.commandInvoker, this.commands);
+	}
+
+	initializeCommands() {
+		return {
 			sum: new SumCommand(this.calculatorEngine),
 			substract: new SubstractCommand(this.calculatorEngine),
 			multiply: new MultiplyCommand(this.calculatorEngine),
-			clear: new ClearCommand(this.calculatorEngine),
 			divide: new DivisionCommand(this.calculatorEngine),
 			toggle: new ToggleSignCommand(this.calculatorEngine),
 			power: new PowerCommand(this.calculatorEngine),
@@ -44,29 +45,28 @@ export class CalculatorHandler {
 			memory_clear: new MemoryClearCommand(this.calculatorEngine),
 			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
 			factorial: new FactorialCommand(this.calculatorEngine),
-		}
+		};
 	}
 
+	///передавать элемент!!!
 	create() {
-		document
-			.querySelector('.calculator__buttons')
-			.addEventListener('click', (clickedButton) => {
-				const buttonClicked = clickedButton.target.closest('button');
-				if (buttonClicked) this.handleButtonClick(buttonClicked);
-			});
+		document.querySelector(".calculator__buttons").addEventListener("click", (clickedButton) => {
+			const buttonClicked = clickedButton.target.closest("button");
+			if (buttonClicked) this.handleButtonClick(buttonClicked);
+		});
 	}
 	handleButtonClick(buttonClicked) {
 		const { value, command, power, base } = buttonClicked.dataset;
 		const isOperand = !!value;
 
-		this.invoker.resetError();
+		this.commandInvoker.resetError();
 
 		if (isOperand) this.calculatorState.setOperand(value);
-		else this.CommandsHanlder.processOperator(command, base, power);
+		else this.commandProcessor.processOperator(command, base, power);
 
 		this.display.updateDisplay(this.calculatorState);
 
-		const error = this.invoker.getError();
+		const error = this.commandInvoker.getError();
 		this.display.showError(error);
 	}
 }

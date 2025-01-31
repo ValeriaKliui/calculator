@@ -1,9 +1,9 @@
 class Command {
 	execute() {
-		throw 'Method execute() should be implemented by subclasses';
+		throw "Method execute() should be implemented by subclasses";
 	}
 	undo() {
-		throw 'Method undo() should be implemented by subclasses';
+		throw "Method undo() should be implemented by subclasses";
 	}
 }
 
@@ -48,12 +48,6 @@ export class MultiplyCommand extends CalculatorCommand {
 export class RootCommand extends CalculatorCommand {
 	execute(base, exponent) {
 		return this.calculator.root(base, exponent);
-	}
-}
-
-export class ClearCommand extends CalculatorCommand {
-	execute() {
-		return this.calculator.clear();
 	}
 }
 

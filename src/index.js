@@ -1,26 +1,22 @@
-import './styles/global.scss';
-import './styles/calculator.scss';
-import './styles/theme-toggler.scss';
-import { BUTTONS_DATA, BUTTON_CLASS_DEFAULT } from './constants';
-import { ThemeToggler } from './classes/ThemeToggler';
-import { CalculatorHandler } from './classes/Calculator/CalculatorHandler';
-import { Buttons } from './classes/Calculator/Buttons';
+import "./styles/global.scss";
+import "./styles/calculator.scss";
+import "./styles/theme-toggler.scss";
+import { BUTTONS_DATA, BUTTON_CLASS_DEFAULT } from "./constants";
+import { ThemeToggler } from "./classes/ThemeToggler";
+import { CalculatorController } from "./classes/Calculator/CalculatorController";
+import { Buttons } from "./classes/Calculator/Buttons";
 
-const buttonsContainer = document.querySelector('.calculator__buttons');
+const buttonsContainer = document.querySelector(".calculator__buttons");
 
-const buttons = new Buttons(
-	buttonsContainer,
-	BUTTONS_DATA,
-	BUTTON_CLASS_DEFAULT,
-);
+const buttons = new Buttons(buttonsContainer, BUTTONS_DATA, BUTTON_CLASS_DEFAULT);
 buttons.render();
 
-const displayElement = document.querySelector('.calculator__display');
-const displayError = document.querySelector('.calculator__error');
+const displayElement = document.querySelector(".calculator__display");
+const displayError = document.querySelector(".calculator__error");
 
-new CalculatorHandler(displayElement, displayError).create();
+new CalculatorController(displayElement, displayError).create();
 
 new ThemeToggler({
-	togglerSelector: '.theme-toggler',
-	togglerCheckboxSelector: '.theme-toggler__checkbox',
+	togglerSelector: ".theme-toggler",
+	togglerCheckboxSelector: ".theme-toggler__checkbox",
 });
