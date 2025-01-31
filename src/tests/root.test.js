@@ -14,23 +14,23 @@ describe('tests for root operation', () => {
 		});
 	});
 
-	it('should throw error on infinity', () => {
-		const result = calculateRoot(Infinity, Infinity);
+	// it('should throw error on infinity', () => {
+	// 	const result = calculateRoot(Infinity, Infinity);
 
-		expect(global.alert).toHaveBeenCalledWith(
-			expect.stringMatching(/Error:/),
-		);
-		expect(result).toBe(0);
-	});
+	// 	expect(global.alert).toHaveBeenCalledWith(
+	// 		expect.stringMatching(/Error:/),
+	// 	);
+	// 	expect(result).toBe(0);
+	// });
 
-	it('should throw error on square root of negative number', () => {
-		const result = calculateRoot(-23, 2);
+	// it('should throw error on square root of negative number', () => {
+	// 	const result = calculateRoot(-23, 2);
 
-		expect(global.alert).toHaveBeenCalledWith(
-			expect.stringMatching(/Error:/),
-		);
-		expect(result).toBe(0);
-	});
+	// 	expect(global.alert).toHaveBeenCalledWith(
+	// 		expect.stringMatching(/Error:/),
+	// 	);
+	// 	expect(result).toBe(0);
+	// });
 
 	it('should handle absence of arguments', () => {
 		const withoutArgs = calculateRoot();

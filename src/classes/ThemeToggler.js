@@ -14,7 +14,6 @@ export class ThemeToggler {
 		);
 	}
 	setInitialTheme() {
-		console.log(this);
 		const savedTheme = localStorage.getItem('theme') || 'light';
 		this.togglerCheckbox.checked = savedTheme === 'dark';
 		this.setTheme(savedTheme);

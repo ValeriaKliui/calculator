@@ -145,7 +145,7 @@ export const calculatePercent = (value = 0, base = 0) => {
 
 	if (!baseNumber) return number / 100;
 
-	return number + (number * baseNumber) / 100;
+	return (baseNumber) / 100 * number;
 };
 
 export const calculateFactorial = (value) => {

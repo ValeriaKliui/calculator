@@ -6,19 +6,14 @@ export const getOperatorSymbol = (operationType) => {
 	return OPERATORS_SYMBOLS[operationType] || null;
 };
 export const getExpression = (
-	currentOperand,
 	leftOperand,
 	operationType,
 	rightOperand,
 ) => {
 	const operator = getOperatorSymbol(operationType);
 
-	if (leftOperand === null || rightOperand === null) {
-		return currentOperand;
-	}
+	if (operationType === 'root')`${rightOperand ?? ''}${operator ?? ''}${leftOperand ?? ''}`
 
-	return operationType === 'root'
-		? `${rightOperand}${operator ?? ''}${leftOperand}`
-		: `${leftOperand}${operator ?? ''}${rightOperand}`;
+	return `${leftOperand ?? ''}${operator ?? ''}${rightOperand ?? ''}`
 };
 export const getIfDecimalNumber = (operand) => String(operand).includes('.');

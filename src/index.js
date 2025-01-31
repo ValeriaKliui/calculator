@@ -2,12 +2,14 @@ import './styles/global.scss';
 import './styles/calculator.scss';
 import './styles/theme-toggler.scss';
 import { BUTTONS_DATA, BUTTON_CLASS_DEFAULT } from './constants';
-import { Buttons } from './classes/Buttons';
-import { CalculatorHandler } from './classes/CalculatorHandler';
 import { ThemeToggler } from './classes/ThemeToggler';
+import { CalculatorHandler } from './classes/Calculator/CalculatorHandler';
+import { Buttons } from './classes/Calculator/Buttons';
+
+const buttonsContainer = document.querySelector('.calculator__buttons');
 
 const buttons = new Buttons(
-	'.calculator__buttons',
+	buttonsContainer,
 	BUTTONS_DATA,
 	BUTTON_CLASS_DEFAULT,
 );

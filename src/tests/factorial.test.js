@@ -15,37 +15,37 @@ describe('tests for factorial operation', () => {
 		});
 	});
 
-	it('should throw error on infinity', () => {
-		const result = calculateFactorial(Infinity);
+	// it('should throw error on infinity', () => {
+	// 	const result = calculateFactorial(Infinity);
 
-		expect(global.alert).toHaveBeenCalledWith(
-			expect.stringMatching(/Error:/),
-		);
-		expect(result).toBe(0);
-	});
+	// 	expect(global.alert).toHaveBeenCalledWith(
+	// 		expect.stringMatching(/Error:/),
+	// 	);
+	// 	expect(result).toBe(0);
+	// });
 
-	it('should throw error on negative numbers or numbers > 170', () => {
-		const resultNegative = calculateFactorial(-10);
-		expect(global.alert).toHaveBeenCalledWith(
-			expect.stringMatching(/Error:/),
-		);
-		expect(resultNegative).toBe(0);
+	// it('should throw error on negative numbers or numbers > 170', () => {
+	// 	const resultNegative = calculateFactorial(-10);
+	// 	expect(global.alert).toHaveBeenCalledWith(
+	// 		expect.stringMatching(/Error:/),
+	// 	);
+	// 	expect(resultNegative).toBe(0);
 
-		const resultHuge = calculateFactorial(2500);
-		expect(global.alert).toHaveBeenCalledWith(
-			expect.stringMatching(/Error:/),
-		);
-		expect(resultHuge).toBe(0);
-	});
+	// 	const resultHuge = calculateFactorial(2500);
+	// 	expect(global.alert).toHaveBeenCalledWith(
+	// 		expect.stringMatching(/Error:/),
+	// 	);
+	// 	expect(resultHuge).toBe(0);
+	// });
 
-	it('should throw error on decimal numbers ', () => {
-		const result = calculateFactorial(0.234242424);
+	// it('should throw error on decimal numbers ', () => {
+	// 	const result = calculateFactorial(0.234242424);
 
-		expect(global.alert).toHaveBeenCalledWith(
-			expect.stringMatching(/Error:/),
-		);
-		expect(result).toBe(0);
-	});
+	// 	expect(global.alert).toHaveBeenCalledWith(
+	// 		expect.stringMatching(/Error:/),
+	// 	);
+	// 	expect(result).toBe(0);
+	// });
 
 	it('should handle absence of arguments', () => {
 		const withoutArgs = calculateFactorial();

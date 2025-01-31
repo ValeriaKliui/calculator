@@ -1,6 +1,6 @@
-import { Receiver } from './Calculator';
 import { Invoker } from './CalculatorButtons';
-import { Client } from './Client';
+import { Receiver } from './Receiver';
+import { CalculatorState } from './CalculatorState';
 import {
 	ClearCommand,
 	DivisionCommand,
@@ -17,10 +17,18 @@ import {
 	SumCommand,
 	ToggleSignCommand,
 } from './Commands';
+import { Display } from './Display';
+import { CommandsHanlder } from './CommandsHanlder';
 
 export class CalculatorHandler {
-	constructor(displayElement,displayError) {
+	constructor(displayElement, displayErrorElement) {
 		this.calculatorEngine = new Receiver();
+		this.invoker = new Invoker();
+
+		// this.calculationError = null;
+		this.calculatorState = new CalculatorState();
+		this.display = new Display(displayElement, displayErrorElement);
+		this.CommandsHanlder = new CommandsHanlder(this.calculatorState, this.invoker, this.commands);
 		this.commands = {
 			sum: new SumCommand(this.calculatorEngine),
 			substract: new SubstractCommand(this.calculatorEngine),
@@ -36,24 +44,29 @@ export class CalculatorHandler {
 			memory_clear: new MemoryClearCommand(this.calculatorEngine),
 			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
 			factorial: new FactorialCommand(this.calculatorEngine),
-		};
-		this.buttons = new Invoker();
-		this.displayElement = displayElement;
-		this.displayError = displayError
+		}
 	}
-	create() {
-		const handler = new Client(
-			this.commands,
-			this.buttons,
-			this.calculatorEngine,
-			this.displayElement,this.displayError
-		);
 
+	create() {
 		document
 			.querySelector('.calculator__buttons')
 			.addEventListener('click', (clickedButton) => {
 				const buttonClicked = clickedButton.target.closest('button');
-				if (buttonClicked) handler.handleButtonClick(buttonClicked);
+				if (buttonClicked) this.handleButtonClick(buttonClicked);
 			});
+	}
+	handleButtonClick(buttonClicked) {
+		const { value, command, power, base } = buttonClicked.dataset;
+		const isOperand = !!value;
+
+		this.invoker.resetError();
+
+		if (isOperand) this.calculatorState.setOperand(value);
+		else this.CommandsHanlder.processOperator(command, base, power);
+
+		this.display.updateDisplay(this.calculatorState);
+
+		const error = this.invoker.getError();
+		this.display.showError(error);
 	}
 }

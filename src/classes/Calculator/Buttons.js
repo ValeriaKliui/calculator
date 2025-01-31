@@ -1,8 +1,8 @@
 import { Button } from './Button';
 
 export class Buttons {
-	constructor(containerSelector, buttonsData, defaultClass = '') {
-		this.container = document.querySelector(containerSelector);
+	constructor(container, buttonsData, defaultClass = '') {
+		this.container = container
 		this.buttonsData = buttonsData;
 		this.defaultClass = defaultClass;
 	}

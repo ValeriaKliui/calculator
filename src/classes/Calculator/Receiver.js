@@ -7,7 +7,7 @@ import {
 	calculateRoot,
 	calculateSum,
 	roundNumber,
-} from '../utils/math';
+} from '../../utils/math';
 
 export class Receiver {
 	constructor() {
@@ -84,7 +84,6 @@ export class Receiver {
 		return 0
 	}
 	memory_recall() {
-		console.log(this.rememberedValue)
 		return this.rememberedValue || 0;
 	}
 
