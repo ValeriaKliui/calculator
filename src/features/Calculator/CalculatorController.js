@@ -1,6 +1,8 @@
-import { CommandInvoker } from "./CommandInvoker";
+import { CalculatorDisplay } from "./CalculatorDisplay";
 import { CalculatorEngine } from "./CalculatorEngine";
 import { CalculatorState } from "./CalculatorState";
+import { CommandInvoker } from "./CommandInvoker";
+import { CommandProcessor } from "./CommandProcessor";
 import {
 	DivisionCommand,
 	FactorialCommand,
@@ -16,8 +18,6 @@ import {
 	SumCommand,
 	ToggleSignCommand,
 } from "./Commands";
-import { CalculatorDisplay } from "./CalculatorDisplay";
-import { CommandProcessor } from "./CommandProcessor";
 
 export class CalculatorController {
 	constructor(displayElement, displayErrorElement) {

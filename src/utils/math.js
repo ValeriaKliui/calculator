@@ -1,8 +1,8 @@
-import { ROUNDING_PRECISION } from '../constants';
+import { ROUNDING_PRECISION } from "../constants";
 
 export const roundNumber = (number, digit = ROUNDING_PRECISION) => {
-	if (typeof number !== 'number' || isNaN(number)) {
-		throw new Error('Invalid number input');
+	if (typeof number !== "number" || isNaN(number)) {
+		throw new Error("Invalid number input");
 	}
 
 	const roundedNumber = number.toFixed(digit);
@@ -11,8 +11,8 @@ export const roundNumber = (number, digit = ROUNDING_PRECISION) => {
 };
 
 export const calculateSum = (a, b = 0) => {
-	if (typeof a === 'boolean' || typeof b === 'boolean') {
-		throw new Error('Boolean values are not allowed');
+	if (typeof a === "boolean" || typeof b === "boolean") {
+		throw new Error("Boolean values are not allowed");
 	}
 
 	const first = isNaN(Number(a)) ? 0 : Number(a);
@@ -22,8 +22,8 @@ export const calculateSum = (a, b = 0) => {
 };
 
 export const calculateMultiply = (a, b = 1) => {
-	if (typeof a === 'boolean' || typeof b === 'boolean') {
-		throw new Error('Boolean values are not allowed');
+	if (typeof a === "boolean" || typeof b === "boolean") {
+		throw new Error("Boolean values are not allowed");
 	}
 
 	const first = isNaN(Number(a)) ? 0 : Number(a);
@@ -33,31 +33,25 @@ export const calculateMultiply = (a, b = 1) => {
 };
 
 export const calculateDivision = (a, b = 1) => {
-	if (typeof a === 'boolean' || typeof b === 'boolean') {
-		throw new Error('Boolean values are not allowed');
+	if (typeof a === "boolean" || typeof b === "boolean") {
+		throw new Error("Boolean values are not allowed");
 	}
 	const first = isNaN(Number(a)) ? 0 : Number(a);
 	const second = isNaN(Number(b)) ? 0 : Number(b);
 
 	if (second === 0) {
-		throw new Error('Division by zero is not allowed');
+		throw new Error("Division by zero is not allowed");
 	}
 
 	return first / second;
 };
 export const calculatePower = (b, e = 2) => {
-	if (
-		[b, e].some(
-			(val) => typeof val === 'boolean' || val === '' || val === null,
-		)
-	) {
-		throw new Error(
-			'Invalid input: base or exponent cannot be boolean, null, or empty string',
-		);
+	if ([b, e].some((val) => typeof val === "boolean" || val === "" || val === null)) {
+		throw new Error("Invalid input: base or exponent cannot be boolean, null, or empty string");
 	}
 
 	if (!isFinite(e)) {
-		throw new Error('Exponent must be a finite number');
+		throw new Error("Exponent must be a finite number");
 	}
 
 	const base = Number(b);
@@ -93,19 +87,19 @@ export const calculatePower = (b, e = 2) => {
 const abs = (num) => (num < 0 ? -num : num);
 
 export const calculateRoot = (b, e = 2) => {
-	if (typeof b === 'boolean' || typeof e === 'boolean') {
-		throw new Error('Invalid input: base or exponent cannot be boolean');
+	if (typeof b === "boolean" || typeof e === "boolean") {
+		throw new Error("Invalid input: base or exponent cannot be boolean");
 	}
 
 	const base = Number(b);
 	const exponent = Number(e);
 
 	if (isNaN(base) || isNaN(exponent)) {
-		throw new Error('Base and exponent must be valid numbers');
+		throw new Error("Base and exponent must be valid numbers");
 	}
 
 	if (base < 0 && exponent % 2 === 0) {
-		throw new Error('Negative base cant has odd exponent');
+		throw new Error("Negative base cant has odd exponent");
 	}
 
 	if (base === 0) return 0;
@@ -119,56 +113,49 @@ export const calculateRoot = (b, e = 2) => {
 	const accuracy = 0.000000001;
 	let prevGuess;
 
-	const abs = (n) => (n < 0 ? -n : n);
-
 	do {
 		prevGuess = guess;
-		guess =
-			((exponent - 1) * guess +
-				base / calculatePower(guess, exponent - 1)) /
-			exponent;
+		guess = ((exponent - 1) * guess + base / calculatePower(guess, exponent - 1)) / exponent;
 	} while (abs(guess - prevGuess) > accuracy);
 
 	return guess;
 };
 export const calculatePercent = (value = 0, base = 0) => {
-	if (typeof value === 'boolean' || typeof base === 'boolean') {
-		throw new Error('Invalid input: value or base cannot be boolean');
+	if (typeof value === "boolean" || typeof base === "boolean") {
+		throw new Error("Invalid input: value or base cannot be boolean");
 	}
 
 	const number = Number(value);
 	const baseNumber = Number(base);
 
 	if (isNaN(number) || isNaN(baseNumber)) {
-		throw new Error('Invalid input: value and base must be valid numbers');
+		throw new Error("Invalid input: value and base must be valid numbers");
 	}
 
 	if (!baseNumber) return number / 100;
 
-	return (baseNumber) / 100 * number;
+	return (baseNumber / 100) * number;
 };
 
 export const calculateFactorial = (value) => {
 	if (
-		typeof value === 'boolean' ||
-		typeof value === 'object' ||
-		value === '' ||
+		typeof value === "boolean" ||
+		typeof value === "object" ||
+		value === "" ||
 		value === null ||
 		value === undefined
 	) {
-		throw new Error(
-			'Invalid input: value cannot be boolean, object, empty string, null, or undefined',
-		);
+		throw new Error("Invalid input: value cannot be boolean, object, empty string, null, or undefined");
 	}
 
 	const number = Number(value);
 
 	if (isNaN(number)) {
-		throw new Error('Invalid input: value must be a valid number');
+		throw new Error("Invalid input: value must be a valid number");
 	}
 
 	if (!Number.isInteger(number) || number < 0 || number > 170) {
-		throw new Error('Value is too big or not integer');
+		throw new Error("Value is too big or not integer");
 	}
 
 	let result = 1;

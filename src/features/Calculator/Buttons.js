@@ -1,8 +1,8 @@
-import { Button } from './Button';
+import { Button } from "./Button";
 
 export class Buttons {
-	constructor(container, buttonsData, defaultClass = '') {
-		this.container = container
+	constructor(container, buttonsData, defaultClass = "") {
+		this.container = container;
 		this.buttonsData = buttonsData;
 		this.defaultClass = defaultClass;
 	}

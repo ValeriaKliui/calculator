@@ -1,14 +1,14 @@
 export class Button {
 	constructor({
-		className = '',
-		text = '',
+		className = "",
+		text = "",
 		value = null,
 		command = null,
-		classExtra = '',
+		classExtra = "",
 		power = null,
 		base = null,
 	}) {
-		this.className = `${className}${classExtra ? ` ${classExtra}` : ''}`;
+		this.className = `${className}${classExtra ? ` ${classExtra}` : ""}`;
 		this.text = text;
 		this.value = value;
 		this.command = command;
@@ -17,14 +17,12 @@ export class Button {
 	}
 
 	getButton() {
-		const button = document.createElement('button');
+		const button = document.createElement("button");
 		button.className = this.className;
 		button.textContent = this.text;
 
-		const datasets = ['command', 'value', 'power', 'base'];
-		datasets.forEach(
-			(value) => this[value] && (button.dataset[value] = this[value]),
-		);
+		const datasets = ["command", "value", "power", "base"];
+		datasets.forEach((value) => this[value] && (button.dataset[value] = this[value]));
 
 		return button;
 	}

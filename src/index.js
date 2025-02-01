@@ -1,10 +1,11 @@
 import "./styles/global.scss";
 import "./styles/calculator.scss";
 import "./styles/theme-toggler.scss";
-import { BUTTONS_DATA, BUTTON_CLASS_DEFAULT } from "./constants";
-import { ThemeToggler } from "./classes/ThemeToggler";
-import { CalculatorController } from "./classes/Calculator/CalculatorController";
-import { Buttons } from "./classes/Calculator/Buttons";
+
+import { BUTTON_CLASS_DEFAULT, BUTTONS_DATA } from "./constants";
+import { Buttons } from "./features/Calculator/Buttons";
+import { CalculatorController } from "./features/Calculator/CalculatorController";
+import { ThemeToggler } from "./features/ThemeToggler/ThemeToggler";
 
 const buttonsContainer = document.querySelector(".calculator__buttons");
 

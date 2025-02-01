@@ -1,9 +1,9 @@
 import {
 	calculateDivision,
-	calculatePower,
 	calculateFactorial,
 	calculateMultiply,
 	calculatePercent,
+	calculatePower,
 	calculateRoot,
 	calculateSum,
 	roundNumber,

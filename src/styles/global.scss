@@ -1,9 +1,9 @@
-@use './vars.scss';
+@use "./vars.scss";
 
 body {
 	background-color: var(--background-color);
 	color: var(--color);
-	font-family: 'Roboto', serif;
+	font-family: "Roboto", serif;
 	font-weight: 400;
 	font-size: 22px;
 	height: 100vh;
@@ -12,6 +12,7 @@ body {
 		color 0.3s;
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 	margin: 0;
 	padding: 0 20px;

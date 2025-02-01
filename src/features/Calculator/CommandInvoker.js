@@ -19,7 +19,7 @@ export class CommandInvoker {
 
 			return result;
 		} catch (error) {
-			this.logError(`${error.message}`);
+			this.logError(`${error.message || "Result is infinity"}`);
 			return 0;
 		}
 	}
@@ -35,7 +35,9 @@ export class CommandInvoker {
 		this.error = message;
 	}
 	getError() {
-		return this.error;
+		if (this.error) return `Error: ${this.error}`;
+
+		return null;
 	}
 	resetError() {
 		this.error = null;

@@ -9,11 +9,12 @@
 	justify-content: flex-start;
 	cursor: pointer;
 	padding: 0 5px;
-	align-self: flex-end;
 }
+
 .theme-toggler__checkbox {
 	display: none;
 }
+
 .theme-toggler__button {
 	width: 30px;
 	height: 30px;
@@ -21,6 +22,7 @@
 	border-radius: 50%;
 	transition: transform 0.2s ease-in-out;
 }
+
 .theme-toggler__checkbox:checked + .theme-toggler__button {
 	transform: translate(100%);
 }

@@ -1,18 +1,28 @@
-import { Receiver } from "../classes/Calculator";
-import { CommandInvoker } from "../classes/CommandInvoker";
+import { CalculatorEngine } from "../features/Calculator/CalculatorEngine";
+import { CommandInvoker } from "../features/Calculator/CommandInvoker";
 import {
 	DivisionCommand,
+	FactorialCommand,
 	MultiplyCommand,
+	PercentCommand,
+	PowerCommand,
+	RootCommand,
 	SubstractCommand,
 	SumCommand,
 	ToggleSignCommand,
-	PowerCommand,
-	RootCommand,
-	PercentCommand,
-	FactorialCommand,
-} from "../classes/Commands";
+} from "../features/Calculator/Commands";
 
-const calculatorEngine = new Receiver();
+beforeEach(() => {
+	jest.spyOn(console, "error").mockImplementation(() => {});
+	global.alert = jest.fn();
+});
+
+afterEach(() => {
+	jest.restoreAllMocks();
+	resetError();
+});
+
+const calculatorEngine = new CalculatorEngine();
 
 const commands = {
 	sum: new SumCommand(calculatorEngine),
@@ -25,11 +35,18 @@ const commands = {
 	percent: new PercentCommand(calculatorEngine),
 	factorial: new FactorialCommand(calculatorEngine),
 };
-const buttons = new CommandInvoker();
+const commandInvoker = new CommandInvoker();
 
 export const getOperationResult = (commandName, ...variables) => {
 	const command = commands[commandName];
-	buttons.setCommand(command);
+	commandInvoker.setCommand(command);
 
-	return buttons.pressButton(...variables);
+	return commandInvoker.pressButton(...variables);
+};
+
+export const getError = () => {
+	return commandInvoker.getError();
+};
+export const resetError = () => {
+	return commandInvoker.resetError();
 };
