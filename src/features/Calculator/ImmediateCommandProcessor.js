@@ -1,5 +1,5 @@
 export class ImmediateCommandProcessor {
-	constructor(calculatorState, commandInvoker, calculateExpression, commands) {
+	constructor({ calculatorState, commandInvoker, calculateExpression, commands }) {
 		this.calculatorState = calculatorState;
 		this.commandInvoker = commandInvoker;
 		this.calculateExpression = calculateExpression;
@@ -17,9 +17,10 @@ export class ImmediateCommandProcessor {
 	}
 
 	handleMemoryAndSpecialCommands(command, base, power) {
-		const isResultOfCalculation = !this.calculatorState.operationType;
+		const { operationType } = this.calculatorState.getCurrentState();
+		const isResultOfCalculation = !operationType;
 
-		if ((!isResultOfCalculation && command.includes("memory_add")) || command.includes("substract")) return;
+		if (!isResultOfCalculation && (command.includes("memory_add") || command.includes("memory_substract"))) return;
 
 		this.commandInvoker.setCommand(this.commands[command]);
 		this.executeCommand(command, base, power);
@@ -30,61 +31,24 @@ export class ImmediateCommandProcessor {
 
 		if (operands) {
 			const result = this.commandInvoker.pressButton(...operands);
-			this.calculatorState.currentOperand = result;
+			this.calculatorState.updateState({ currentOperand: result });
 		} else {
 			this.handleSpecialCommands(command);
 		}
 	}
 
 	getOperandsForCommand(command, base, power) {
+		const { currentOperand, operationType, leftOperand } = this.calculatorState.getCurrentState();
+
 		const commandsMap = {
-			power: [base || this.calculatorState.currentOperand, power || this.calculatorState.currentOperand],
-			root: [this.calculatorState.currentOperand, power],
-			divide: [base, this.calculatorState.currentOperand],
-			factorial: [this.calculatorState.currentOperand],
-			percent: [
-				this.calculatorState.currentOperand,
-				["sum", "substract"].includes(this.calculatorState.operationType)
-					? this.calculatorState.leftOperand
-					: null,
-			],
+			power: [base || currentOperand, power || currentOperand],
+			root: [currentOperand, power],
+			divide: [base, currentOperand],
+			factorial: [currentOperand],
+			percent: [currentOperand, ["sum", "substract"].includes(operationType) ? leftOperand : null],
+			toggle: [currentOperand],
 		};
 		return commandsMap[command];
-	}
-
-	handleEqual() {
-		if (this.calculatorState.operationType) {
-			this.calculateExpression();
-			this.calculatorState.leftOperand = null;
-		}
-	}
-
-	handleUndo() {
-		const result = this.commandInvoker.pressUndo();
-		this.calculatorState.currentOperand = result;
-		this.calculatorState.leftOperand = result;
-	}
-
-	handleToggleSign() {
-		if (this.calculatorState.isStartOfOperand) {
-			this.calculatorState.leftOperand = this.commandInvoker.pressButton(this.calculatorState.leftOperand);
-		} else {
-			this.calculatorState.currentOperand = this.commandInvoker.pressButton(this.calculatorState.currentOperand);
-		}
-	}
-	handleMemoryAddOrSubtract() {
-		if (!this.calculatorState.operationType) {
-			this.commandInvoker.pressButton(this.calculatorState.currentOperand ?? 0);
-		}
-	}
-
-	handleMemoryRecall() {
-		const rememberedValue = this.commandInvoker.pressButton(this.calculatorState.currentOperand);
-		if (this.calculatorState.operationType) {
-			this.calculatorState.setOperand(rememberedValue);
-		} else {
-			this.calculatorState.currentOperand = rememberedValue;
-		}
 	}
 
 	handleSpecialCommands(command) {
@@ -99,12 +63,46 @@ export class ImmediateCommandProcessor {
 			case "memory_clear":
 				this.commandInvoker.pressButton();
 				break;
-			case "toggle":
-				this.handleToggleSign();
-				break;
+
 			case "clear":
 				this.calculatorState.resetState();
 				break;
+		}
+	}
+
+	handleEqual() {
+		const { operationType } = this.calculatorState.getCurrentState();
+
+		if (operationType) {
+			this.calculateExpression();
+
+			this.calculatorState.updateState({ leftOperand: null });
+		}
+	}
+
+	handleUndo() {
+		const result = this.commandInvoker.pressUndo();
+
+		this.calculatorState.resetState();
+		this.calculatorState.updateState({ currentOperand: result });
+	}
+	handleMemoryAddOrSubtract() {
+		const { operationType, currentOperand } = this.calculatorState.getCurrentState();
+
+		if (!operationType) {
+			this.commandInvoker.pressButton(currentOperand ?? 0);
+		}
+	}
+
+	handleMemoryRecall() {
+		const { operationType, currentOperand } = this.calculatorState.getCurrentState();
+
+		const rememberedValue = this.commandInvoker.pressButton(currentOperand);
+
+		if (operationType) {
+			this.calculatorState.setOperand(rememberedValue);
+		} else {
+			this.calculatorState.updateState({ currentOperand: rememberedValue });
 		}
 	}
 }

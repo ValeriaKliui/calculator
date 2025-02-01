@@ -56,6 +56,11 @@ export class ToggleSignCommand extends CalculatorCommand {
 		return this.calculator.toggle(number);
 	}
 }
+export class FactorialCommand extends CalculatorCommand {
+	execute(number) {
+		return this.calculator.factorial(number);
+	}
+}
 
 export class PercentCommand extends CalculatorCommand {
 	execute(number, baseNumber) {
@@ -63,13 +68,13 @@ export class PercentCommand extends CalculatorCommand {
 	}
 }
 export class MemoryAddCommand extends CalculatorCommand {
-	execute(firstValue) {
-		return this.calculator.memory_add(firstValue);
+	execute(number) {
+		return this.calculator.memory_add(number);
 	}
 }
 export class MemorySubstractCommand extends CalculatorCommand {
-	execute(firstValue) {
-		return this.calculator.memory_substract(firstValue);
+	execute(number) {
+		return this.calculator.memory_substract(number);
 	}
 }
 export class MemoryClearCommand extends CalculatorCommand {
@@ -80,10 +85,5 @@ export class MemoryClearCommand extends CalculatorCommand {
 export class MemoryRecallCommand extends CalculatorCommand {
 	execute() {
 		return this.calculator.memory_recall();
-	}
-}
-export class FactorialCommand extends CalculatorCommand {
-	execute(value) {
-		return this.calculator.factorial(value);
 	}
 }

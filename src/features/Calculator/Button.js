@@ -1,28 +1,20 @@
 export class Button {
-	constructor({
-		className = "",
-		text = "",
-		value = null,
-		command = null,
-		classExtra = "",
-		power = null,
-		base = null,
-	}) {
-		this.className = `${className}${classExtra ? ` ${classExtra}` : ""}`;
+	constructor({ className = "", text = "", classExtra = "", onClick = null, ...datasets }) {
+		this.className = [className, classExtra].filter(Boolean).join(" ");
 		this.text = text;
-		this.value = value;
-		this.command = command;
-		this.power = power;
-		this.base = base;
+		this.onClick = onClick;
+		this.datasets = datasets;
 	}
 
 	getButton() {
 		const button = document.createElement("button");
 		button.className = this.className;
 		button.textContent = this.text;
+		if (this.onClick) {
+			button.addEventListener("click", this.onClick);
+		}
 
-		const datasets = ["command", "value", "power", "base"];
-		datasets.forEach((value) => this[value] && (button.dataset[value] = this[value]));
+		Object.entries(this.datasets).forEach(([name, value]) => (button.dataset[name] = value));
 
 		return button;
 	}

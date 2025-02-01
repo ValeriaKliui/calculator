@@ -1,7 +1,7 @@
 export class ThemeToggler {
-	constructor({ togglerSelector, togglerCheckboxSelector }) {
-		this.toggler = document.querySelector(togglerSelector);
-		this.togglerCheckbox = document.querySelector(togglerCheckboxSelector);
+	constructor({ toggler, togglerCheckbox }) {
+		this.toggler = toggler;
+		this.togglerCheckbox = togglerCheckbox;
 
 		this.init();
 	}

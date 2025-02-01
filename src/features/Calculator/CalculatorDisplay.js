@@ -6,16 +6,10 @@ export class CalculatorDisplay {
 		this.displayErrorElement = displayErrorElement;
 	}
 
-	updateDisplay(calculatorState) {
-		const { currentOperand, leftOperand, operationType, isStartOfOperand } = calculatorState.getCurrentState();
-
-		const rightOperand = this.getRightOperand(leftOperand, currentOperand, isStartOfOperand);
+	updateDisplay({ currentOperand, leftOperand, operationType, isStartOfOperand }) {
+		const rightOperand = leftOperand !== null && !isStartOfOperand ? currentOperand : "";
 
 		this.displayElement.value = getExpression(leftOperand ?? currentOperand, operationType, rightOperand);
-	}
-
-	getRightOperand(leftOperand, currentOperand, isStartOfOperand) {
-		return leftOperand && !isStartOfOperand ? currentOperand : "";
 	}
 
 	showError(error) {

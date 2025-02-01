@@ -63,19 +63,18 @@ export class CalculatorEngine {
 		return this._calculate(calculateRoot, base, exponent);
 	}
 
-	memory_add(firstValue) {
-		return this._updateMemory(firstValue, calculateSum);
+	memory_add(value) {
+		this.rememberedValue = this._calculate(calculateSum, this.rememberedValue, value);
+		return 0;
 	}
-
-	memory_substract(firstValue) {
-		return this._updateMemory(firstValue * -1, calculateSum);
+	memory_substract(value) {
+		this.rememberedValue = this._calculate(calculateSum, this.rememberedValue, value * -1);
+		return 0;
 	}
-
 	memory_clear() {
 		this.rememberedValue = "";
 		return 0;
 	}
-
 	memory_recall() {
 		return this.rememberedValue || 0;
 	}

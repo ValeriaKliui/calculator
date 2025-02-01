@@ -1,7 +1,3 @@
-import { CalculatorDisplay } from "./CalculatorDisplay";
-import { CalculatorEngine } from "./CalculatorEngine";
-import { CalculatorState } from "./CalculatorState";
-import { CommandInvoker } from "./CommandInvoker";
 import { CommandProcessor } from "./CommandProcessor";
 import {
 	DivisionCommand,
@@ -20,18 +16,12 @@ import {
 } from "./Commands";
 
 export class CalculatorController {
-	constructor(displayElement, displayErrorElement) {
-		this.calculatorEngine = new CalculatorEngine();
-		this.commandInvoker = new CommandInvoker();
-
-		this.calculatorState = new CalculatorState();
-		this.display = new CalculatorDisplay(displayElement, displayErrorElement);
-		this.commands = this.initializeCommands();
-		this.commandProcessor = new CommandProcessor(this.calculatorState, this.commandInvoker, this.commands);
-	}
-
-	initializeCommands() {
-		return {
+	constructor({ display, calculatorEngine, commandInvoker, calculatorState }) {
+		this.display = display;
+		this.calculatorEngine = calculatorEngine;
+		this.commandInvoker = commandInvoker;
+		this.calculatorState = calculatorState;
+		this.commands = {
 			sum: new SumCommand(this.calculatorEngine),
 			substract: new SubstractCommand(this.calculatorEngine),
 			multiply: new MultiplyCommand(this.calculatorEngine),
@@ -46,25 +36,19 @@ export class CalculatorController {
 			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
 			factorial: new FactorialCommand(this.calculatorEngine),
 		};
-	}
-
-	///передавать элемент!!!
-	create() {
-		document.querySelector(".calculator__buttons").addEventListener("click", (clickedButton) => {
-			const buttonClicked = clickedButton.target.closest("button");
-			if (buttonClicked) this.handleButtonClick(buttonClicked);
+		this.commandProcessor = new CommandProcessor({
+			calculatorState: this.calculatorState,
+			commandInvoker: this.commandInvoker,
+			commands: this.commands,
 		});
 	}
-	handleButtonClick(buttonClicked) {
-		const { value, command, power, base } = buttonClicked.dataset;
-		const isOperand = !!value;
 
+	handleClick({ value, command, power, base }) {
 		this.commandInvoker.resetError();
 
-		if (isOperand) this.calculatorState.setOperand(value);
-		else this.commandProcessor.processOperator(command, base, power);
+		this.commandProcessor.processCommand(value, command, base, power);
 
-		this.display.updateDisplay(this.calculatorState);
+		this.display.updateDisplay(this.calculatorState.getCurrentState());
 
 		const error = this.commandInvoker.getError();
 		this.display.showError(error);

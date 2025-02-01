@@ -2,20 +2,29 @@ import { ImmediateCommandProcessor } from "./ImmediateCommandProcessor";
 import { SequentialCommandProcessor } from "./SequentialCommandProcessor";
 
 export class CommandProcessor {
-	constructor(calculatorState, commandInvoker, commands) {
+	constructor({ calculatorState, commandInvoker, commands }) {
 		this.calculatorState = calculatorState;
 		this.commands = commands;
-		this.sequentialCommandProcessor = new SequentialCommandProcessor(
-			this.calculatorState,
+
+		this.sequentialCommandProcessor = new SequentialCommandProcessor({
+			calculatorState: this.calculatorState,
+			commands: this.commands,
 			commandInvoker,
-			this.commands,
-		);
-		this.immediateCommandProcessor = new ImmediateCommandProcessor(
-			this.calculatorState,
+		});
+
+		this.immediateCommandProcessor = new ImmediateCommandProcessor({
+			calculatorState: this.calculatorState,
+			commands: this.commands,
 			commandInvoker,
-			this.sequentialCommandProcessor.calculateExpression,
-			this.commands,
-		);
+			calculateExpression: this.sequentialCommandProcessor.calculateExpression,
+		});
+	}
+	processCommand(value, command, base, power) {
+		if (value) {
+			this.calculatorState.setOperand(value);
+		} else {
+			this.processOperator(command, base, power);
+		}
 	}
 
 	processOperator(command, base, power) {

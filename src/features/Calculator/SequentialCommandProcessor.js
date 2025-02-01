@@ -1,21 +1,22 @@
 export class SequentialCommandProcessor {
-	constructor(calculatorState, commandInvoker, commands) {
+	constructor({ calculatorState, commandInvoker, commands }) {
 		this.calculatorState = calculatorState;
 		this.commandInvoker = commandInvoker;
 		this.commands = commands;
 	}
+
 	calculateSequentially(command) {
-		const isReadyForCalculation =
-			this.calculatorState.leftOperand !== null && !this.calculatorState.isStartOfOperand;
+		const { currentOperand, leftOperand, isStartOfOperand } = this.calculatorState.getCurrentState();
+
+		const isReadyForCalculation = leftOperand !== null && !isStartOfOperand;
 
 		if (isReadyForCalculation) {
 			this.calculateExpression();
 		} else {
-			this.calculatorState.leftOperand = this.calculatorState.currentOperand;
+			this.calculatorState.updateState({ leftOperand: currentOperand });
 		}
 
-		this.calculatorState.operationType = command;
-		this.calculatorState.isStartOfOperand = true;
+		this.calculatorState.updateState({ operationType: command, isStartOfOperand: true });
 	}
 
 	calculateExpression() {
@@ -26,9 +27,11 @@ export class SequentialCommandProcessor {
 		this.commandInvoker.setCommand(command);
 		const result = this.commandInvoker.pressButton(leftOperand, currentOperand);
 
-		this.calculatorState.currentOperand = result;
-		this.calculatorState.leftOperand = result;
-		this.calculatorState.operationType = null;
-		this.calculatorState.isStartOfOperand = true;
+		this.calculatorState.updateState({
+			currentOperand: result,
+			leftOperand: result,
+			operationType: null,
+			isStartOfOperand: true,
+		});
 	}
 }

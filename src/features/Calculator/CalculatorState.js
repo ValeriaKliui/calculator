@@ -22,6 +22,14 @@ export class CalculatorState {
 			this.currentOperand += value;
 		}
 	}
+
+	updateState({ currentOperand, leftOperand, operationType, isStartOfOperand }) {
+		if (currentOperand !== undefined) this.currentOperand = currentOperand;
+		if (leftOperand !== undefined) this.leftOperand = leftOperand;
+		if (operationType !== undefined) this.operationType = operationType;
+		if (isStartOfOperand !== undefined) this.isStartOfOperand = isStartOfOperand;
+	}
+
 	getCurrentState() {
 		return {
 			currentOperand: this.currentOperand,
