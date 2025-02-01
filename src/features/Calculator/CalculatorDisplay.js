@@ -1,4 +1,4 @@
-import { getExpression } from "../../utils/string";
+import { getExpression } from "@utils/string";
 
 export class CalculatorDisplay {
 	constructor(displayElement, displayErrorElement) {

@@ -1,4 +1,4 @@
-import { getIfDecimalNumber } from "../../utils/string";
+import { getIfDecimalNumber } from "@utils/string";
 
 export class CalculatorState {
 	constructor() {

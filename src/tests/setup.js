@@ -1,5 +1,5 @@
-import { CalculatorEngine } from "../features/Calculator/CalculatorEngine";
-import { CommandInvoker } from "../features/Calculator/CommandInvoker";
+import { CalculatorEngine } from "@features/Calculator/CalculatorEngine";
+import { CommandInvoker } from "@features/Calculator/CommandInvoker";
 import {
 	DivisionCommand,
 	FactorialCommand,
@@ -10,7 +10,7 @@ import {
 	SubstractCommand,
 	SumCommand,
 	ToggleSignCommand,
-} from "../features/Calculator/Commands";
+} from "@features/Calculator/Commands";
 
 beforeEach(() => {
 	jest.spyOn(console, "error").mockImplementation(() => {});

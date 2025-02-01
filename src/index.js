@@ -2,14 +2,14 @@ import "./styles/global.scss";
 import "./styles/calculator.scss";
 import "./styles/theme-toggler.scss";
 
-import { BUTTON_CLASS_DEFAULT, BUTTONS_DATA } from "./constants";
-import { CalculatorButtons } from "./features/Calculator/CalculatorButtons";
-import { CalculatorController } from "./features/Calculator/CalculatorController";
-import { ThemeToggler } from "./features/ThemeToggler/ThemeToggler";
-import { CalculatorEngine } from "./features/Calculator/CalculatorEngine";
-import { CommandInvoker } from "./features/Calculator/CommandInvoker";
-import { CalculatorState } from "./features/Calculator/CalculatorState";
-import { CalculatorDisplay } from "./features/Calculator/CalculatorDisplay";
+import { BUTTON_CLASS_DEFAULT, BUTTONS_DATA } from "@constants";
+import { CalculatorButtons } from "@features/Calculator/CalculatorButtons";
+import { CalculatorController } from "@features/Calculator/CalculatorController";
+import { CalculatorDisplay } from "@features/Calculator/CalculatorDisplay";
+import { CalculatorEngine } from "@features/Calculator/CalculatorEngine";
+import { CalculatorState } from "@features/Calculator/CalculatorState";
+import { CommandInvoker } from "@features/Calculator/CommandInvoker";
+import { ThemeToggler } from "@features/ThemeToggler/ThemeToggler";
 
 function initializeCalculator() {
 	const displayElement = document.querySelector(".calculator__display");

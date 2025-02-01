@@ -1,4 +1,4 @@
-import { ROUNDING_PRECISION } from "../constants";
+import { ROUNDING_PRECISION } from "@constants";
 
 export const roundNumber = (number, digit = ROUNDING_PRECISION) => {
 	if (typeof number !== "number" || isNaN(number)) {

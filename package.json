@@ -18,7 +18,12 @@
 		"testEnvironment": "jsdom",
 		"setupFilesAfterEnv": [
 			"<rootDir>/src/tests/setup.js"
-		]
+		],
+		"moduleNameMapper": {
+			"^@features(.*)$": "<rootDir>/src/features$1",
+			"^@utils(.*)$": "<rootDir>/src/utils$1",
+			"^@constants(.*)$": "<rootDir>/src/constants$1"
+		}
 	},
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown"

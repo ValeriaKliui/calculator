@@ -1,4 +1,4 @@
-import { ROUNDING_PRECISION } from "../constants";
+import { ROUNDING_PRECISION } from "@constants";
 import { getError, getOperationResult } from "./setup";
 
 describe("tests for multiply operation", () => {

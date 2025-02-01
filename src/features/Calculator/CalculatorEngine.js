@@ -7,7 +7,7 @@ import {
 	calculateRoot,
 	calculateSum,
 	roundNumber,
-} from "../../utils/math";
+} from "@utils/math";
 
 export class CalculatorEngine {
 	constructor() {

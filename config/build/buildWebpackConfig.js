@@ -1,6 +1,7 @@
-const buildPlugins = require('./buildPlugins.js');
-const buildDevServer = require('./buildDevServer.js');
-const buildLoaders = require('./buildLoaders.js');
+const buildPlugins = require("./buildPlugins.js");
+const buildDevServer = require("./buildDevServer.js");
+const buildLoaders = require("./buildLoaders.js");
+const buildResolvers = require("./buildResolvers.js");
 
 module.exports = function buildWebpackConfig(options) {
 	const { paths, mode, isDev } = options;
@@ -10,15 +11,16 @@ module.exports = function buildWebpackConfig(options) {
 		entry,
 		mode,
 		output: {
-			filename: '[main].[contenthash].js',
+			filename: "[main].[contenthash].js",
 			path: build,
 			clean: true,
 		},
 		plugins: buildPlugins(options),
 		devServer: buildDevServer(options),
-		devtool: isDev ? 'inline-source-map' : false,
+		devtool: isDev ? "inline-source-map" : false,
 		module: {
-			rules: buildLoaders(),
+			rules: buildLoaders(options),
 		},
+		resolve: buildResolvers(options),
 	};
 };
