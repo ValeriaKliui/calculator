@@ -20,7 +20,7 @@ export class ImmediateCommandProcessor {
 		const { operationType } = this.calculatorState.getCurrentState();
 		const isResultOfCalculation = !operationType;
 
-		if (!isResultOfCalculation && (command.includes("memory_add") || command.includes("memory_substract"))) return;
+		if (!isResultOfCalculation && (command.includes("memory_add") || command.includes("memory_subtract"))) return;
 
 		this.commandInvoker.setCommand(this.commands[command]);
 		this.executeCommand(command, base, power);
@@ -45,7 +45,7 @@ export class ImmediateCommandProcessor {
 			root: [currentOperand, power],
 			divide: [base, currentOperand],
 			factorial: [currentOperand],
-			percent: [currentOperand, ["sum", "substract"].includes(operationType) ? leftOperand : null],
+			percent: [currentOperand, ["sum", "subtract"].includes(operationType) ? leftOperand : null],
 			toggle: [currentOperand],
 		};
 		return commandsMap[command];
@@ -54,7 +54,7 @@ export class ImmediateCommandProcessor {
 	handleSpecialCommands(command) {
 		switch (command) {
 			case "memory_add":
-			case "memory_substract":
+			case "memory_subtract":
 				this.handleMemoryAddOrSubtract();
 				break;
 			case "memory_recall":

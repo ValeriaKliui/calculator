@@ -6,7 +6,7 @@ export const OPERATORS_SYMBOLS = {
 	multiply: "×",
 	sum: "+",
 	divide: "÷",
-	substract: "-",
+	subtract: "-",
 	power: "^",
 	root: "√",
 };
@@ -50,7 +50,7 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: "calculator__button--lowlight",
-		command: "memory_substract",
+		command: "memory_subtract",
 		text: "m-",
 	},
 	{
@@ -75,7 +75,7 @@ export const BUTTONS_DATA = [
 	},
 	{
 		classExtra: "calculator__button--highlight",
-		command: "substract",
+		command: "subtract",
 		isSequential: true,
 		text: "—",
 	},

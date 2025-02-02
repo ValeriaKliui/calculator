@@ -29,9 +29,9 @@ export class SumCommand extends CalculatorCommand {
 		return this.calculator.sum(left, right);
 	}
 }
-export class SubstractCommand extends CalculatorCommand {
+export class SubtractCommand extends CalculatorCommand {
 	execute(left, right) {
-		return this.calculator.substract(left, right);
+		return this.calculator.subtract(left, right);
 	}
 }
 export class PowerCommand extends CalculatorCommand {
@@ -72,9 +72,9 @@ export class MemoryAddCommand extends CalculatorCommand {
 		return this.calculator.memory_add(number);
 	}
 }
-export class MemorySubstractCommand extends CalculatorCommand {
+export class MemorySubtractCommand extends CalculatorCommand {
 	execute(number) {
-		return this.calculator.memory_substract(number);
+		return this.calculator.memory_subtract(number);
 	}
 }
 export class MemoryClearCommand extends CalculatorCommand {

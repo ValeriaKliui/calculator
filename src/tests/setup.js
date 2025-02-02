@@ -7,7 +7,7 @@ import {
 	PercentCommand,
 	PowerCommand,
 	RootCommand,
-	SubstractCommand,
+	SubtractCommand,
 	SumCommand,
 	ToggleSignCommand,
 } from "@features/Calculator/Commands";
@@ -26,7 +26,7 @@ const calculatorEngine = new CalculatorEngine();
 
 const commands = {
 	sum: new SumCommand(calculatorEngine),
-	substract: new SubstractCommand(calculatorEngine),
+	subtract: new SubtractCommand(calculatorEngine),
 	multiply: new MultiplyCommand(calculatorEngine),
 	divide: new DivisionCommand(calculatorEngine),
 	toggle: new ToggleSignCommand(calculatorEngine),

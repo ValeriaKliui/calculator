@@ -16,7 +16,7 @@ export class CalculatorEngine {
 		this.history = [];
 	}
 
-	_calculate(operation, ...numbers) {
+	#calculate(operation, ...numbers) {
 		this.history.push(this.value);
 
 		const result = operation(...numbers);
@@ -25,56 +25,47 @@ export class CalculatorEngine {
 		return this.value;
 	}
 
-	_updateMemory(value, operation) {
-		if (!this.value) {
-			this.rememberedValue = roundNumber(operation(value, this.rememberedValue));
-		} else {
-			this.rememberedValue = roundNumber(operation(this.value, this.rememberedValue));
-		}
-		return 0;
-	}
-
 	sum(left, right) {
-		return this._calculate(calculateSum, left, right);
+		return this.#calculate(calculateSum, left, right);
 	}
 
-	substract(left, right) {
-		return this._calculate(calculateSum, left, right * -1);
+	subtract(left, right) {
+		return this.#calculate(calculateSum, left, right * -1);
 	}
 
 	multiply(left, right) {
-		return this._calculate(calculateMultiply, left, right);
+		return this.#calculate(calculateMultiply, left, right);
 	}
 
 	divide(left, right) {
-		return this._calculate(calculateDivision, left, right);
+		return this.#calculate(calculateDivision, left, right);
 	}
 
 	percent(number, baseNumber) {
-		return this._calculate(calculatePercent, number, baseNumber);
+		return this.#calculate(calculatePercent, number, baseNumber);
 	}
 
 	factorial(value) {
-		return this._calculate(calculateFactorial, value);
+		return this.#calculate(calculateFactorial, value);
 	}
 
 	power(base, exponent) {
-		return this._calculate(calculatePower, base, exponent);
+		return this.#calculate(calculatePower, base, exponent);
 	}
 
 	root(base, exponent) {
-		return this._calculate(calculateRoot, base, exponent);
+		return this.#calculate(calculateRoot, base, exponent);
 	}
 	toggle(number) {
-		return this._calculate(calculateMultiply, number * -1, 1);
+		return this.#calculate(calculateMultiply, number, -1);
 	}
 
 	memory_add(value) {
-		this.rememberedValue = this._calculate(calculateSum, this.rememberedValue, value);
+		this.rememberedValue = this.#calculate(calculateSum, this.rememberedValue, value);
 		return 0;
 	}
-	memory_substract(value) {
-		this.rememberedValue = this._calculate(calculateSum, this.rememberedValue, value * -1);
+	memory_subtract(value) {
+		this.rememberedValue = this.#calculate(calculateSum, this.rememberedValue, value * -1);
 		return 0;
 	}
 	memory_clear() {

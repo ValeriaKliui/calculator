@@ -5,12 +5,12 @@ import {
 	MemoryAddCommand,
 	MemoryClearCommand,
 	MemoryRecallCommand,
-	MemorySubstractCommand,
+	MemorySubtractCommand,
 	MultiplyCommand,
 	PercentCommand,
 	PowerCommand,
 	RootCommand,
-	SubstractCommand,
+	SubtractCommand,
 	SumCommand,
 	ToggleSignCommand,
 } from "./Commands";
@@ -23,7 +23,7 @@ export class CalculatorController {
 		this.calculatorState = calculatorState;
 		this.commands = {
 			sum: new SumCommand(this.calculatorEngine),
-			substract: new SubstractCommand(this.calculatorEngine),
+			subtract: new SubtractCommand(this.calculatorEngine),
 			multiply: new MultiplyCommand(this.calculatorEngine),
 			divide: new DivisionCommand(this.calculatorEngine),
 			toggle: new ToggleSignCommand(this.calculatorEngine),
@@ -31,7 +31,7 @@ export class CalculatorController {
 			root: new RootCommand(this.calculatorEngine),
 			percent: new PercentCommand(this.calculatorEngine),
 			memory_add: new MemoryAddCommand(this.calculatorEngine),
-			memory_substract: new MemorySubstractCommand(this.calculatorEngine),
+			memory_subtract: new MemorySubtractCommand(this.calculatorEngine),
 			memory_clear: new MemoryClearCommand(this.calculatorEngine),
 			memory_recall: new MemoryRecallCommand(this.calculatorEngine),
 			factorial: new FactorialCommand(this.calculatorEngine),
