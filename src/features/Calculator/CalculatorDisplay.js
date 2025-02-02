@@ -1,7 +1,7 @@
 import { getExpression } from "@utils/string";
 
 export class CalculatorDisplay {
-	constructor(displayElement, displayErrorElement) {
+	constructor({ displayElement, displayErrorElement }) {
 		this.displayElement = displayElement;
 		this.displayErrorElement = displayErrorElement;
 	}

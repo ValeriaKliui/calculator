@@ -43,10 +43,10 @@ export class CalculatorController {
 		});
 	}
 
-	handleClick({ value, command, power, base }) {
+	handleClick({ value, command, power, base, isSequential }) {
 		this.commandInvoker.resetError();
 
-		this.commandProcessor.processCommand(value, command, base, power);
+		this.commandProcessor.processCommand(value, command, base, power, isSequential);
 
 		this.display.updateDisplay(this.calculatorState.getCurrentState());
 

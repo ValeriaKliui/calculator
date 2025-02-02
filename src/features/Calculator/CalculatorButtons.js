@@ -1,7 +1,7 @@
 import { Button } from "./Button";
 
 export class CalculatorButtons {
-	constructor(container, buttonsData, defaultClass = "", onClick) {
+	constructor({ container, buttonsData, defaultClass = "", onClick }) {
 		this.container = container;
 		this.buttonsData = buttonsData;
 		this.defaultClass = defaultClass;

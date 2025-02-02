@@ -1,4 +1,5 @@
 import { ROUNDING_PRECISION } from "@constants";
+
 import { getError, getOperationResult } from "./setup";
 
 describe("tests for root operation", () => {

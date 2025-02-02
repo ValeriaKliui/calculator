@@ -35,8 +35,8 @@ export class SubstractCommand extends CalculatorCommand {
 	}
 }
 export class PowerCommand extends CalculatorCommand {
-	execute(left, right) {
-		return this.calculator.power(left, right);
+	execute(base, exponent) {
+		return this.calculator.power(base, exponent);
 	}
 }
 

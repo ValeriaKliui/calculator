@@ -19,24 +19,19 @@ export class CommandProcessor {
 			calculateExpression: this.sequentialCommandProcessor.calculateExpression,
 		});
 	}
-	processCommand(value, command, base, power) {
+	processCommand(value, command, base, power, isSequential) {
 		if (value) {
 			this.calculatorState.setOperand(value);
 		} else {
-			this.processOperator(command, base, power);
+			this.processOperator(command, base, power, isSequential);
 		}
 	}
 
-	processOperator(command, base, power) {
-		if (this.isBasicOperation(command, base, power)) {
+	processOperator(command, base, power, isSequential) {
+		if (isSequential) {
 			this.sequentialCommandProcessor.calculateSequentially(command);
 		} else {
 			this.immediateCommandProcessor.calculateImmediately(command, base, power);
 		}
-	}
-
-	isBasicOperation(command, base, power) {
-		const basicOperations = ["sum", "multiply", "substract", "power", "root", "divide"];
-		return basicOperations.includes(command) && !base && !power;
 	}
 }

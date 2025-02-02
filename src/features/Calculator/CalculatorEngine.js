@@ -16,12 +16,15 @@ export class CalculatorEngine {
 		this.history = [];
 	}
 
-	_calculate(operation, ...args) {
+	_calculate(operation, ...numbers) {
 		this.history.push(this.value);
-		const result = operation(...args);
+
+		const result = operation(...numbers);
 		this.value = roundNumber(result);
+
 		return this.value;
 	}
+
 	_updateMemory(value, operation) {
 		if (!this.value) {
 			this.rememberedValue = roundNumber(operation(value, this.rememberedValue));
@@ -62,6 +65,9 @@ export class CalculatorEngine {
 	root(base, exponent) {
 		return this._calculate(calculateRoot, base, exponent);
 	}
+	toggle(number) {
+		return this._calculate(calculateMultiply, number * -1, 1);
+	}
 
 	memory_add(value) {
 		this.rememberedValue = this._calculate(calculateSum, this.rememberedValue, value);
@@ -78,13 +84,6 @@ export class CalculatorEngine {
 	memory_recall() {
 		return this.rememberedValue || 0;
 	}
-
-	toggle(number) {
-		this.history.push(this.value);
-		this.value = roundNumber(number * -1);
-		return this.value;
-	}
-
 	uncalculate() {
 		this.value = this.history.pop() || 0;
 		return this.value;

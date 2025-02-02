@@ -25,6 +25,7 @@ export class SequentialCommandProcessor {
 		const command = this.commands[operationType];
 
 		this.commandInvoker.setCommand(command);
+
 		const result = this.commandInvoker.pressButton(leftOperand, currentOperand);
 
 		this.calculatorState.updateState({

@@ -71,9 +71,9 @@ export class ImmediateCommandProcessor {
 	}
 
 	handleEqual() {
-		const { operationType } = this.calculatorState.getCurrentState();
+		const { operationType, isStartOfOperand } = this.calculatorState.getCurrentState();
 
-		if (operationType) {
+		if (operationType && !isStartOfOperand) {
 			this.calculateExpression();
 
 			this.calculatorState.updateState({ leftOperand: null });
@@ -82,6 +82,8 @@ export class ImmediateCommandProcessor {
 
 	handleUndo() {
 		const result = this.commandInvoker.pressUndo();
+
+		if (!result) this.calculatorState.resetState();
 
 		this.calculatorState.resetState();
 		this.calculatorState.updateState({ currentOperand: result });
@@ -97,7 +99,7 @@ export class ImmediateCommandProcessor {
 	handleMemoryRecall() {
 		const { operationType, currentOperand } = this.calculatorState.getCurrentState();
 
-		const rememberedValue = this.commandInvoker.pressButton(currentOperand);
+		const rememberedValue = this.commandInvoker.pressButton({ numbers: [currentOperand] });
 
 		if (operationType) {
 			this.calculatorState.setOperand(rememberedValue);

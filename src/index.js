@@ -21,7 +21,7 @@ function initializeCalculator() {
 		return;
 	}
 
-	const display = new CalculatorDisplay(displayElement, displayErrorElement);
+	const display = new CalculatorDisplay({ displayElement, displayErrorElement });
 	const calculatorController = new CalculatorController({
 		display,
 		calculatorEngine: new CalculatorEngine(),
@@ -29,10 +29,16 @@ function initializeCalculator() {
 		calculatorState: new CalculatorState(),
 	});
 
-	const calculatorButtons = new CalculatorButtons(buttonsContainer, BUTTONS_DATA, BUTTON_CLASS_DEFAULT, (event) => {
+	const onCalculatorButtonClick = (event) => {
 		const target = event.target.closest("button");
 		if (!target) return;
 		calculatorController.handleClick(target.dataset);
+	};
+	const calculatorButtons = new CalculatorButtons({
+		container: buttonsContainer,
+		buttonsData: BUTTONS_DATA,
+		defaultClass: BUTTON_CLASS_DEFAULT,
+		onClick: onCalculatorButtonClick,
 	});
 	calculatorButtons.render();
 }
