@@ -11,6 +11,7 @@ import {
 	SumCommand,
 	ToggleSignCommand,
 } from "@features/Calculator/Commands";
+import { ErrorManager } from "@features/Calculator/ErrorManager";
 
 beforeEach(() => {
 	jest.spyOn(console, "error").mockImplementation(() => {});
@@ -35,7 +36,7 @@ const commands = {
 	percent: new PercentCommand(calculatorEngine),
 	factorial: new FactorialCommand(calculatorEngine),
 };
-const commandInvoker = new CommandInvoker();
+const commandInvoker = new CommandInvoker(new ErrorManager());
 
 export const getOperationResult = (commandName, ...variables) => {
 	const command = commands[commandName];
