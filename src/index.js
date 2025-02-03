@@ -22,6 +22,7 @@ function initializeCalculator() {
 	}
 
 	const display = new CalculatorDisplay({ displayElement, displayErrorElement });
+
 	const calculatorController = new CalculatorController({
 		display,
 		calculatorEngine: new CalculatorEngine(),

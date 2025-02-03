@@ -10,19 +10,17 @@ import {
 } from "@utils/math";
 
 export class CalculatorEngine {
-	constructor() {
-		this.value = "";
-		this.rememberedValue = "";
-		this.history = [];
-	}
+	#value = "";
+	#rememberedValue = "";
+	#history = [];
 
 	#calculate(operation, ...numbers) {
-		this.history.push(this.value);
+		this.#history.push(this.#value);
 
 		const result = operation(...numbers);
-		this.value = roundNumber(result);
+		this.#value = roundNumber(result);
 
-		return this.value;
+		return this.#value;
 	}
 
 	sum(left, right) {
@@ -56,27 +54,32 @@ export class CalculatorEngine {
 	root(base, exponent) {
 		return this.#calculate(calculateRoot, base, exponent);
 	}
+
 	toggle(number) {
 		return this.#calculate(calculateMultiply, number, -1);
 	}
 
 	memory_add(value) {
-		this.rememberedValue = this.#calculate(calculateSum, this.rememberedValue, value);
+		this.#rememberedValue = this.#calculate(calculateSum, this.#rememberedValue, value);
 		return 0;
 	}
+
 	memory_subtract(value) {
-		this.rememberedValue = this.#calculate(calculateSum, this.rememberedValue, value * -1);
+		this.#rememberedValue = this.#calculate(calculateSum, this.#rememberedValue, value * -1);
 		return 0;
 	}
+
 	memory_clear() {
-		this.rememberedValue = "";
+		this.#rememberedValue = "";
 		return 0;
 	}
+
 	memory_recall() {
-		return this.rememberedValue || 0;
+		return this.#rememberedValue || 0;
 	}
+
 	uncalculate() {
-		this.value = this.history.pop() || 0;
-		return this.value;
+		this.#value = this.#history.pop() || 0;
+		return this.#value;
 	}
 }
