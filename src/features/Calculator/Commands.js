@@ -1,4 +1,11 @@
 class Command {
+	constructor(calculator) {
+		if (new.target === Command) {
+			throw new Error("Command is an abstract class.");
+		}
+		this.calculator = calculator;
+		this.error = null;
+	}
 	execute() {
 		throw "Method execute() should be implemented by subclasses";
 	}
@@ -8,12 +15,6 @@ class Command {
 }
 
 class CalculatorCommand extends Command {
-	constructor(calculator) {
-		super();
-		this.calculator = calculator;
-		this.error = null;
-	}
-
 	undo() {
 		return this.calculator.uncalculate();
 	}

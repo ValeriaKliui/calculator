@@ -7,9 +7,10 @@ import { CalculatorButtons } from "@features/Calculator/CalculatorButtons";
 import { CalculatorController } from "@features/Calculator/CalculatorController";
 import { CalculatorDisplay } from "@features/Calculator/CalculatorDisplay";
 import { ThemeToggler } from "@features/ThemeToggler/ThemeToggler";
+
 import { CalculatorEngine } from "./features/Calculator/CalculatorEngine";
-import { CommandInvoker } from "./features/Calculator/CommandInvoker";
 import { CalculatorState } from "./features/Calculator/CalculatorState";
+import { CommandInvoker } from "./features/Calculator/CommandInvoker";
 
 function initializeCalculator() {
 	const displayElement = document.querySelector(".calculator__display");
