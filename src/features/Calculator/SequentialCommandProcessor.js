@@ -20,7 +20,7 @@ export class SequentialCommandProcessor {
 	}
 
 	calculateExpression() {
-		const { leftOperand, currentOperand, operationType } = this.calculatorState;
+		const { leftOperand, currentOperand, operationType } = this.calculatorState.getCurrentState();
 
 		const command = this.commands[operationType];
 

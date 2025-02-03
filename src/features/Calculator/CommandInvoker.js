@@ -18,6 +18,7 @@ export class CommandInvoker {
 
 			return result;
 		} catch (error) {
+			console.error(error);
 			this.logError(`${error.message || "Result is infinity"}`);
 			return 0;
 		}

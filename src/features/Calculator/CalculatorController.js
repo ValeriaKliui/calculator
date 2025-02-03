@@ -1,4 +1,7 @@
 import { CommandProcessor } from "./CommandProcessor";
+import { CalculatorEngine } from "./CalculatorEngine";
+import { CalculatorState } from "./CalculatorState";
+import { CommandInvoker } from "./CommandInvoker";
 import {
 	DivisionCommand,
 	FactorialCommand,
@@ -16,11 +19,12 @@ import {
 } from "./Commands";
 
 export class CalculatorController {
-	constructor({ display, calculatorEngine, commandInvoker, calculatorState }) {
+	constructor({ display }) {
 		this.display = display;
-		this.calculatorEngine = calculatorEngine;
-		this.commandInvoker = commandInvoker;
-		this.calculatorState = calculatorState;
+		this.calculatorEngine = new CalculatorEngine();
+		this.commandInvoker = new CommandInvoker();
+		this.calculatorState = new CalculatorState();
+
 		this.commands = {
 			sum: new SumCommand(this.calculatorEngine),
 			subtract: new SubtractCommand(this.calculatorEngine),

@@ -6,9 +6,6 @@ import { BUTTON_CLASS_DEFAULT, BUTTONS_DATA } from "@constants";
 import { CalculatorButtons } from "@features/Calculator/CalculatorButtons";
 import { CalculatorController } from "@features/Calculator/CalculatorController";
 import { CalculatorDisplay } from "@features/Calculator/CalculatorDisplay";
-import { CalculatorEngine } from "@features/Calculator/CalculatorEngine";
-import { CalculatorState } from "@features/Calculator/CalculatorState";
-import { CommandInvoker } from "@features/Calculator/CommandInvoker";
 import { ThemeToggler } from "@features/ThemeToggler/ThemeToggler";
 
 function initializeCalculator() {
@@ -25,9 +22,6 @@ function initializeCalculator() {
 
 	const calculatorController = new CalculatorController({
 		display,
-		calculatorEngine: new CalculatorEngine(),
-		commandInvoker: new CommandInvoker(),
-		calculatorState: new CalculatorState(),
 	});
 
 	const onCalculatorButtonClick = (event) => {
