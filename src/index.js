@@ -7,6 +7,9 @@ import { CalculatorButtons } from "@features/Calculator/CalculatorButtons";
 import { CalculatorController } from "@features/Calculator/CalculatorController";
 import { CalculatorDisplay } from "@features/Calculator/CalculatorDisplay";
 import { ThemeToggler } from "@features/ThemeToggler/ThemeToggler";
+import { CalculatorEngine } from "./features/Calculator/CalculatorEngine";
+import { CommandInvoker } from "./features/Calculator/CommandInvoker";
+import { CalculatorState } from "./features/Calculator/CalculatorState";
 
 function initializeCalculator() {
 	const displayElement = document.querySelector(".calculator__display");
@@ -22,6 +25,9 @@ function initializeCalculator() {
 
 	const calculatorController = new CalculatorController({
 		display,
+		calculatorEngine: new CalculatorEngine(),
+		commandInvoker: new CommandInvoker(),
+		calculatorState: new CalculatorState(),
 	});
 
 	const onCalculatorButtonClick = (event) => {
