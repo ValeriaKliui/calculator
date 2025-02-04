@@ -1,7 +1,10 @@
 export class CommandInvoker {
 	#command = null;
 	#history = [];
-	#error = null;
+
+	constructor(errorManager) {
+		this.errorManager = errorManager;
+	}
 
 	setCommand(command) {
 		this.#command = command;
@@ -18,8 +21,7 @@ export class CommandInvoker {
 
 			return result;
 		} catch (error) {
-			console.error(error);
-			this.logError(`${error.message || "Result is infinity"}`);
+			this.errorManager.logError(error, `${error.message || "Result is infinity"}`);
 			return 0;
 		}
 	}
@@ -29,15 +31,11 @@ export class CommandInvoker {
 		return lastCommand ? lastCommand.undo() : 0;
 	}
 
-	logError(message) {
-		this.#error = message;
-	}
-
 	getError() {
-		return this.#error ? `Error: ${this.#error}` : null;
+		return this.errorManager.getError();
 	}
 
 	resetError() {
-		this.#error = null;
+		this.errorManager.resetError();
 	}
 }

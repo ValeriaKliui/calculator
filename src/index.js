@@ -7,10 +7,10 @@ import { CalculatorButtons } from "@features/Calculator/CalculatorButtons";
 import { CalculatorController } from "@features/Calculator/CalculatorController";
 import { CalculatorDisplay } from "@features/Calculator/CalculatorDisplay";
 import { ThemeToggler } from "@features/ThemeToggler/ThemeToggler";
-
-import { CalculatorEngine } from "./features/Calculator/CalculatorEngine";
-import { CalculatorState } from "./features/Calculator/CalculatorState";
-import { CommandInvoker } from "./features/Calculator/CommandInvoker";
+import { CalculatorEngine } from "@features/Calculator/CalculatorEngine";
+import { CalculatorState } from "@features/Calculator/CalculatorState";
+import { CommandInvoker } from "@features/Calculator/CommandInvoker";
+import { ErrorManager } from "@features/Calculator/ErrorManager";
 
 function initializeCalculator() {
 	const displayElement = document.querySelector(".calculator__display");
@@ -27,7 +27,7 @@ function initializeCalculator() {
 	const calculatorController = new CalculatorController({
 		display,
 		calculatorEngine: new CalculatorEngine(),
-		commandInvoker: new CommandInvoker(),
+		commandInvoker: new CommandInvoker(new ErrorManager()),
 		calculatorState: new CalculatorState(),
 	});
 

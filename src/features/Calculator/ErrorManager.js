@@ -1,7 +1,8 @@
-export class ErrorManager extends Error {
+export class ErrorManager {
 	#error = null;
 
-	logError(message) {
+	logError(error, message) {
+		console.error(error);
 		this.#error = message;
 	}
 
