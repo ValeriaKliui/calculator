@@ -77,14 +77,25 @@ public/
 
 ```plaintext
 src/
-├── constants/                         # Reusable constants for the application.
-├── features/                          # JavaScript files for specific features
-│   ├── Calculator/
-│   └── ThemeToggler/                  # Toggles between different themes.
-├── styles/                            # SCSS files for styling the application.
-├── test/                              # Init tests for math functions.
-├── utils/                             # Utility functions organized into categories.
-│   ├── math/                          # Mathematical utility functions.
-│   └── string/                        # String manipulation functions.
-└── index.js                           # The main JavaScript file that runs the app.
+├── constants/                            # Reusable constants for the application
+├── features/                             # JavaScript files for specific features
+│   ├── Calculator/                       # Core calculator logic and UI components
+│   │   ├── Button.js                     # Button component for calculator UI
+│   │   ├── CalculatorButtons.js          # Renders calculator buttons
+│   │   ├── CalculatorController.js       # Handles calculator interactions
+│   │   ├── CalculatorDisplay.js          # Displays calculator output
+│   │   ├── CalculatorEngine.js           # Core calculation logic
+│   │   ├── CalculatorState.js            # Manages calculator state
+│   │   ├── CommandInvoker.js             # Handles command execution
+│   │   ├── CommandProcessor.js           # Processes user commands
+│   │   ├── Commands.js                   # Defines available commands
+│   │   ├── ImmediateCommandProcessor.js  # Processes immediate commands
+│   │   ├── SequentialCommandProcessor.js # Processes sequential commands
+│   └── ThemeToggler/                     # Toggles between different themes
+├── styles/                               # SCSS files for styling the application
+├── test/                                 # Init tests for math functions
+├── utils/                                # Utility functions organized into categories
+│   ├── math/                             # Mathematical utility functions
+│   └── string/                           # String manipulation functions
+└── index.js                              # The main JavaScript file that runs the app
 ```
