@@ -1,11 +1,21 @@
 @use "./vars.scss";
 
+html,
+body,
+button,
+input {
+	font-family: "Roboto", serif;
+	font-weight: 400;
+	font-size: 25px;
+
+	@media (min-width: 2000px) {
+		font-size: 50px;
+	}
+}
+
 body {
 	background-color: var(--background-color);
 	color: var(--color);
-	font-family: "Roboto", serif;
-	font-weight: 400;
-	font-size: 22px;
 	height: 100vh;
 	transition:
 		background-color 0.3s,
@@ -26,5 +36,4 @@ button {
 input {
 	padding: 20px;
 	border: none;
-	font-size: 25px;
 }
